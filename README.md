@@ -27,9 +27,11 @@ To simplify the process, the following steps are recommended in exact order:
    [this article](https://askubuntu.com/questions/1491254/installing-cuda-on-ubuntu-23-10-libt5info-not-installable) 
    to resolve the issue.
 2. Install cuDNN for CUDA 12.
-3. Ensure that Python 3.12, pip, and the `venv` module are installed.
-4. Install `venv` and create the `machine_learning_sample` virtual environment.
-5. Install `pytorch` for CUDA 12.4, `tensorflow`, `pytest`, and `pytest-mock`.
+3. Install cuTENSOR for CUDA 12.
+4. Install cuSPARSELt for CUDA 12.
+5. Ensure that Python 3.12, pip, and the `venv` module are installed.
+6. Install `venv` and create the `machine_learning_sample` virtual environment.
+7. Install `pytorch` for CUDA 12.4, `tensorflow`, `cupy-cuda12x`, `scipy`, `optuna`, `sympy`, `pytest`, and `pytest-mock`.
 
 In Ubuntu 24.04, Python 3.12 is installed by default. The following commands are used to install the remaining 
 Python components:
@@ -59,13 +61,15 @@ The commands used for PyTorch and TensorFlow as well as the remaining packages a
 ```shell
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
 pip3 install tensorflow
-pip3 install pytest pytest-mock
+pip3 install cupy-cuda12x scipy optuna sympy pytest pytest-mock
 ```
 
 #### References
 
 - [NVIDIA CUDA Toolkit 12.4 Installation](https://developer.nvidia.com/cuda-12-4-0-download-archive)
 - [cuDNN for CUDA 12 Installation](https://developer.nvidia.com/cudnn-downloads)
+- [cuTENSOR for CUDA 12 Installation](https://developer.nvidia.com/cutensor-downloads)
+- [cuSPARSELt for CUDA 12 Installation](https://developer.nvidia.com/cusparselt-downloads)
 - [Python Virtual Environments](https://docs.python.org/3/library/venv.html)
 - [PyTorch Installation](https://pytorch.org/get-started/locally/)
 - [TensorFlow Installation](https://www.tensorflow.org/install)
