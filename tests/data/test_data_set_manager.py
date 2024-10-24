@@ -4,8 +4,10 @@ import pytest
 from data.dataset_manager import DataSetManager
 
 @pytest.fixture
-def manager():
-    """Fixture to create a DataSetManager instance."""
+def manager() -> DataSetManager:
+    """Fixture to create a DataSetManager instance.
+    :returns: A DataSetManager instance.
+    """
     return DataSetManager()
 
 def test_add_dataset(manager):
