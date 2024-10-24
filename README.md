@@ -32,7 +32,7 @@ To simplify the process, the following steps are recommended in exact order:
 5. Ensure that Python 3.12, pip, and the `venv` module are installed.
 6. Install `venv` and create the `machine_learning_sample` virtual environment.
 7. Install `pytorch` for CUDA 12.4, `tensorflow`, `cupy-cuda12x`, `scipy`, `optuna`, `sympy`, `matplotlib`, `pandas`,
-   `pytest`, and `pytest-mock`.
+   `kagglehub`, `coverage`, `pytest`, and `pytest-mock`.
 
 In Ubuntu 24.04, Python 3.12 is installed by default. The following commands are used to install the remaining 
 Python components:
@@ -62,10 +62,19 @@ The commands used for PyTorch and TensorFlow as well as the remaining packages a
 ```shell
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
 pip3 install tensorflow
-pip3 install cupy-cuda12x scipy optuna sympy matplotlib pandas pytest pytest-mock
+pip3 install cupy-cuda12x scipy optuna sympy matplotlib pandas kagglehub coverage pytest pytest-mock
 ```
 
-#### References
+### Testing
+
+Tests are provided to make changing the code easier, which facilitates learning activities.
+
+## Sample Datasets
+
+The following datasets are used in the code:
+1. [TV Marketing](https://www.kaggle.com/datasets/devzohaib/tvmarketingcsv/data)
+
+## References
 
 - [NVIDIA CUDA Toolkit 12.4 Installation](https://developer.nvidia.com/cuda-12-4-0-download-archive)
 - [cuDNN for CUDA 12 Installation](https://developer.nvidia.com/cudnn-downloads)
@@ -75,7 +84,3 @@ pip3 install cupy-cuda12x scipy optuna sympy matplotlib pandas pytest pytest-moc
 - [PyTorch Installation](https://pytorch.org/get-started/locally/)
 - [TensorFlow Installation](https://www.tensorflow.org/install)
 - [Hugging Face Transformers Installation](https://huggingface.co/docs/transformers/installation)
-
-## Tests
-
-Tests are provided to make changing the code easier, which facilitates learning activities.
