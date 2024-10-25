@@ -1,7 +1,6 @@
 # © 2024 Seb Garrioch. All rights reserved.
 # Published under the MIT License.
 import cupy as cp
-import numpy as np
 import pandas as pd
 
 class DatasetMetadata:
