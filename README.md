@@ -69,6 +69,13 @@ pip3 install cupy-cuda12x scipy optuna sympy matplotlib pandas kagglehub coverag
 
 Tests are provided to make changing the code easier, which facilitates learning activities.
 
+## Notes on the Code
+
+While I don't like tightly coupling code, it is necessary in this context. For example, the dataset manager is tightly
+coupled to KaggleHub and Pandas. At the time of writing, Python doesn't support interfaces. While I could use duck
+typing or an abstract base class, doing so would overcomplicate the code by burying the tight coupling under layers of
+indirection. This would make the code harder to understand and maintain without the benefit of solving the issue.
+
 ## Sample Datasets
 
 The following datasets are used in the code:

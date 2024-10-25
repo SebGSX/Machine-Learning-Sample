@@ -1,9 +1,10 @@
 # © 2024 Seb Garrioch. All rights reserved.
 # Published under the MIT License.
-import pytest
-import pandas as pd
 import cupy as cp
-from src.data.dataset_metadata import DatasetMetadata
+import pandas as pd
+import pytest
+
+from src.data import DatasetMetadata
 
 @pytest.fixture
 def sample_data():
@@ -19,7 +20,7 @@ def sample_data():
     labels = ["Sales"]
     return df, features, labels
 
-def test_initialization(sample_data):
+def test_initialization(sample_data: pd.DataFrame):
     """Tests the initialisation of the DatasetMetadata class.
     :param sample_data: The sample data for testing.
     """
@@ -29,7 +30,7 @@ def test_initialization(sample_data):
     assert metadata.get_feature_count() == 3
     assert metadata.get_label_count() == 1
 
-def test_get_column_wise_normalisation(sample_data):
+def test_get_column_wise_normalisation(sample_data: pd.DataFrame):
     """Tests the get_column_wise_normalisation method.
     :param sample_data: The sample data for testing.
     """
@@ -39,7 +40,7 @@ def test_get_column_wise_normalisation(sample_data):
     normalised_df = metadata.get_column_wise_normalisation()
     assert not normalised_df.empty
 
-def test_get_feature_count(sample_data):
+def test_get_feature_count(sample_data: pd.DataFrame):
     """Tests the get_feature_count method.
     :param sample_data: The sample data for testing.
     """
@@ -47,7 +48,7 @@ def test_get_feature_count(sample_data):
     metadata = DatasetMetadata(df, features, labels)
     assert metadata.get_feature_count() == len(features)
 
-def test_get_label_count(sample_data):
+def test_get_label_count(sample_data: pd.DataFrame):
     """Tests the get_label_count method.
     :param sample_data: The sample data for testing.
     """
@@ -55,7 +56,7 @@ def test_get_label_count(sample_data):
     metadata = DatasetMetadata(df, features, labels)
     assert metadata.get_label_count() == len(labels)
 
-def test_compute_column_wise_normalisation(sample_data):
+def test_compute_column_wise_normalisation(sample_data: pd.DataFrame):
     """Tests the computation of column-wise normalisation.
     :param sample_data: The sample data for testing.
     """
@@ -66,7 +67,7 @@ def test_compute_column_wise_normalisation(sample_data):
     assert not normalised_df.empty
     assert metadata.get_column_wise_normalisation_computed()
 
-def test_compute_column_wise_normalisation_force_recompute(sample_data):
+def test_compute_column_wise_normalisation_force_recompute(sample_data: pd.DataFrame):
     """Tests the computation of column-wise normalisation with force_recompute=True.
     :param sample_data: The sample data for testing.
     """
@@ -78,7 +79,7 @@ def test_compute_column_wise_normalisation_force_recompute(sample_data):
     assert not normalised_df.empty
     assert metadata.get_column_wise_normalisation_computed()
 
-def test_compute_column_wise_normalisation_without_recompute(sample_data):
+def test_compute_column_wise_normalisation_without_recompute(sample_data: pd.DataFrame):
     """Tests the computation of column-wise normalisation without recompute.
     :param sample_data: The sample data for testing.
     """
@@ -90,7 +91,7 @@ def test_compute_column_wise_normalisation_without_recompute(sample_data):
     assert not normalised_df.empty
     assert metadata.get_column_wise_normalisation_computed()
 
-def test_transpose_normalised_column_vectors(sample_data):
+def test_transpose_normalised_column_vectors(sample_data: pd.DataFrame):
     """Tests the transposition of normalised column vectors.
     :param sample_data: The sample data for testing.
     """
@@ -103,7 +104,7 @@ def test_transpose_normalised_column_vectors(sample_data):
     assert all(isinstance(v, cp.ndarray) for v in transposed_features.values())
     assert all(isinstance(v, cp.ndarray) for v in transposed_labels.values())
 
-def test_transpose_normalised_column_vectors_without_prior_normalisation(sample_data):
+def test_transpose_normalised_column_vectors_without_prior_normalisation(sample_data: pd.DataFrame):
     """Tests the transposition of normalised column vectors without prior normalisation.
     :param sample_data: The sample data for testing.
     """
