@@ -1,6 +1,7 @@
 # © 2024 Seb Garrioch. All rights reserved.
 # Published under the MIT License.
 import pytest
+
 from data.dataset_manager import DataSetManager
 
 @pytest.fixture
