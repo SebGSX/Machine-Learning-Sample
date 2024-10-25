@@ -14,7 +14,7 @@ class DatasetMetadata:
     __data_frame: pd.DataFrame
     __feature_names: list[str]
     __label_name: str
-    __transposed_normalised_features: dict
+    __transposed_normalised_features: dict[str, cp.array]
     __transposed_normalised_label: cp.array
 
     def __init__(self, data_frame: pd.DataFrame, feature_names: list[str], label_name: str):
@@ -71,7 +71,7 @@ class DatasetMetadata:
         """
         return 1 if self.__label_name is not None else 0
 
-    def get_transposed_normalised_features(self) -> dict:
+    def get_transposed_normalised_features(self) -> dict[str, cp.array]:
         """Returns the transposed normalised features."""
         return self.__transposed_normalised_features
 
