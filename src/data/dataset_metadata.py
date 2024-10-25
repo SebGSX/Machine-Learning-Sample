@@ -12,24 +12,24 @@ class DatasetMetadata:
     __column_wise_normalisation_computed: bool
     __column_wise_standard_deviation: pd.DataFrame
     __data_frame: pd.DataFrame
-    __features: list
-    __labels: list
+    __feature_names: list
+    __label_names: list
     __transposed_normalised_features: dict
     __transposed_normalised_labels: dict
 
-    def __init__(self, data_frame: pd.DataFrame, features: list, labels: list):
+    def __init__(self, data_frame: pd.DataFrame, feature_names: list, label_names: list):
         """Initializes the class.
         :param data_frame: The Pandas data frame for which to generate metadata.
-        :param features: The list of features, by name, in the data_frame.
-        :param labels: The list of labels, by name, in the data_frame.
+        :param feature_names: The list of features, by name, in the data_frame.
+        :param label_names: The list of labels, by name, in the data_frame.
         """
         self.__column_wise_normalisation = pd.DataFrame()
         self.__column_wise_normalisation_computed = False
         self.__data_frame = data_frame
-        self.__features = features
-        self.__labels = labels
-        self.__transposed_normalised_features: dict = {features: cp.array([]) for features in features}
-        self.__transposed_normalised_labels: dict = {labels: cp.array([]) for labels in labels}
+        self.__feature_names = feature_names
+        self.__label_names = label_names
+        self.__transposed_normalised_features: dict = {feature_name: cp.array([]) for feature_name in feature_names}
+        self.__transposed_normalised_labels: dict = {label_name: cp.array([]) for label_name in label_names}
         # Mean and standard deviation are precomputed for performance reasons.
         # We expect data in rows and columns, therefore we compute the mean and standard deviation column-wise (axis=0).
         self.__column_wise_mean = cp.mean(self.__data_frame, axis=0)
@@ -51,13 +51,13 @@ class DatasetMetadata:
         """Returns the number of features in the data_frame.
         :return: The number of features in the data_frame.
         """
-        return len(self.__features)
+        return len(self.__feature_names)
 
     def get_label_count(self) -> int:
         """Returns the number of labels in the data_frame.
         :return: The number of labels in the data_frame.
         """
-        return len(self.__labels)
+        return len(self.__label_names)
 
     def get_transposed_normalised_features(self) -> dict:
         """Returns the transposed normalised features."""
@@ -83,10 +83,10 @@ class DatasetMetadata:
         if not self.__column_wise_normalisation_computed:
             self.compute_column_wise_normalisation()
 
-        for feature in self.__features:
+        for feature in self.__feature_names:
             norm = self.__column_wise_normalisation[feature]
             self.__transposed_normalised_features[feature] = cp.array(norm).reshape(1, len(norm))
 
-        for label in self.__labels:
+        for label in self.__label_names:
             norm = self.__column_wise_normalisation[label]
             self.__transposed_normalised_labels[label] = cp.array(norm).reshape(1, len(norm))
