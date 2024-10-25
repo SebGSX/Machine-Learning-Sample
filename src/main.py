@@ -1,6 +1,6 @@
 # © 2024 Seb Garrioch. All rights reserved.
 # Published under the MIT License.
-from data.dataset_manager import DataSetManager
+from src.data import DataSetManager
 
 if __name__ == "__main__":
     manager: DataSetManager = DataSetManager()

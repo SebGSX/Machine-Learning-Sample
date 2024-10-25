@@ -2,7 +2,7 @@
 # Published under the MIT License.
 import pytest
 
-from data.dataset_manager import DataSetManager
+from src.data import DataSetManager
 
 @pytest.fixture
 def manager() -> DataSetManager:
