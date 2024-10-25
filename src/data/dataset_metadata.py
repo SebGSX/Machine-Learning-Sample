@@ -95,9 +95,9 @@ class DatasetMetadata:
         if not self.__column_wise_normalisation_computed:
             self.compute_column_wise_normalisation()
 
-        for feature in self.__feature_names:
-            norm = self.__column_wise_normalisation[feature]
-            self.__transposed_normalised_features[feature] = cp.array(norm).reshape(1, len(norm))
+        for feature_name in self.__feature_names:
+            norm = self.__column_wise_normalisation[feature_name]
+            self.__transposed_normalised_features[feature_name] = cp.array(norm).reshape(1, len(norm))
 
         norm = self.__column_wise_normalisation[self.__label_name]
         self.__transposed_normalised_label = cp.array(norm).reshape(1, len(norm))
