@@ -12,12 +12,12 @@ class DatasetMetadata:
     __column_wise_normalisation_computed: bool
     __column_wise_standard_deviation: pd.DataFrame
     __data_frame: pd.DataFrame
-    __feature_names: list
-    __label_names: list
+    __feature_names: list[str]
+    __label_names: list[str]
     __transposed_normalised_features: dict
     __transposed_normalised_labels: dict
 
-    def __init__(self, data_frame: pd.DataFrame, feature_names: list, label_names: list):
+    def __init__(self, data_frame: pd.DataFrame, feature_names: list[str], label_names: list[str]):
         """Initializes the class.
         :param data_frame: The Pandas data frame for which to generate metadata.
         :param feature_names: The list of features, by name, in the data_frame.
