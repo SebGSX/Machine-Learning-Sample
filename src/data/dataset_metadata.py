@@ -1,7 +1,8 @@
 # © 2024 Seb Garrioch. All rights reserved.
 # Published under the MIT License.
-import pandas as pd
 import cupy as cp
+import numpy as np
+import pandas as pd
 
 class DatasetMetadata:
     """Represents metadata about a dataset in tabular format. Columns are expected to represent features or labels while
@@ -31,7 +32,8 @@ class DatasetMetadata:
         self.__transposed_normalised_features: dict = {features: cp.array([]) for features in features}
         self.__transposed_normalised_labels: dict = {labels: cp.array([]) for labels in labels}
         # Mean and standard deviation are precomputed for performance reasons.
-        self.__column_wise_mean = cp.mean(self.__data_frame)
+        # We expect data in rows and columns, therefore we compute the mean and standard deviation column-wise (axis=0).
+        self.__column_wise_mean = cp.mean(self.__data_frame, axis=0)
         self.__column_wise_standard_deviation = cp.std(self.__data_frame, axis=0)
 
     def get_column_wise_normalisation(self) -> pd.DataFrame:
