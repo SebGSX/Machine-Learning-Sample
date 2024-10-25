@@ -35,6 +35,12 @@ class DatasetMetadata:
         self.__column_wise_mean = cp.mean(self.__data_frame, axis=0)
         self.__column_wise_standard_deviation = cp.std(self.__data_frame, axis=0)
 
+    def get_column_wise_mean(self) -> pd.DataFrame:
+        """Returns the column-wise mean of the data_frame.
+        :return: The column-wise mean of the data_frame.
+        """
+        return self.__column_wise_mean
+
     def get_column_wise_normalisation(self) -> pd.DataFrame:
         """Returns the column-wise normalisation of the data_frame.
         :return: The column-wise normalisation of the data_frame.
@@ -46,6 +52,12 @@ class DatasetMetadata:
         :return: True if the column-wise normalisation has been computed; otherwise, False.
         """
         return self.__column_wise_normalisation_computed
+
+    def get_column_wise_standard_deviation(self) -> pd.DataFrame:
+        """Returns the column-wise standard deviation of the data_frame.
+        :return: The column-wise standard deviation of the data_frame.
+        """
+        return self.__column_wise_standard_deviation
 
     def get_feature_count(self) -> int:
         """Returns the number of features in the data_frame.

@@ -17,51 +17,69 @@ def sample_data():
     }
     df = pd.DataFrame(data)
     feature_names = ["TV", "Radio", "Newspaper"]
-    label_names = ["Sales"]
-    return df, feature_names, label_names
+    label_name = "Sales"
+    return df, feature_names, label_name
 
 def test_initialization(sample_data: pd.DataFrame):
     """Tests the initialisation of the DatasetMetadata class.
     :param sample_data: The sample data for testing.
     """
-    df, feature_names, label_names = sample_data
-    metadata = DatasetMetadata(df, feature_names, label_names)
+    df, feature_names, label_name = sample_data
+    metadata = DatasetMetadata(df, feature_names, label_name)
     assert metadata.get_column_wise_normalisation().empty
     assert metadata.get_feature_count() == 3
     assert metadata.get_label_count() == 1
+
+def test_get_column_wise_mean(sample_data: pd.DataFrame):
+    """Tests the get_column_wise_mean method.
+    :param sample_data: The sample data for testing.
+    """
+    df, features, label = sample_data
+    metadata = DatasetMetadata(df, features, label)
+    mean_df = metadata.get_column_wise_mean()
+    assert not mean_df.empty
 
 def test_get_column_wise_normalisation(sample_data: pd.DataFrame):
     """Tests the get_column_wise_normalisation method.
     :param sample_data: The sample data for testing.
     """
-    df, feature_names, label_names = sample_data
-    metadata = DatasetMetadata(df, feature_names, label_names)
+    df, feature_names, label_name = sample_data
+    metadata = DatasetMetadata(df, feature_names, label_name)
     metadata.compute_column_wise_normalisation()
     normalised_df = metadata.get_column_wise_normalisation()
     assert not normalised_df.empty
+
+def test_get_column_wise_standard_deviation(sample_data: pd.DataFrame):
+    """Tests the get_column_wise_standard_deviation method.
+    :param sample_data: The sample data for testing.
+    """
+    df, features, labels = sample_data
+    metadata = DatasetMetadata(df, features, labels)
+    std_df = metadata.get_column_wise_standard_deviation()
+    assert not std_df.empty
 
 def test_get_feature_count(sample_data: pd.DataFrame):
     """Tests the get_feature_count method.
     :param sample_data: The sample data for testing.
     """
-    df, feature_names, label_names = sample_data
-    metadata = DatasetMetadata(df, feature_names, label_names)
+    df, feature_names, label_name = sample_data
+    metadata = DatasetMetadata(df, feature_names, label_name)
     assert metadata.get_feature_count() == len(feature_names)
 
 def test_get_label_count(sample_data: pd.DataFrame):
     """Tests the get_label_count method.
     :param sample_data: The sample data for testing.
     """
-    df, feature_names, label_names = sample_data
-    metadata = DatasetMetadata(df, feature_names, label_names)
-    assert metadata.get_label_count() == len(label_names)
+    df, feature_names, label_name = sample_data
+    metadata = DatasetMetadata(df, feature_names, label_name)
+    assert metadata.get_label_count() == 1
 
 def test_compute_column_wise_normalisation(sample_data: pd.DataFrame):
     """Tests the computation of column-wise normalisation.
     :param sample_data: The sample data for testing.
     """
-    df, feature_names, label_names = sample_data
-    metadata = DatasetMetadata(df, feature_names, label_names)
+    df, feature_names, label_name = sample_data
+    metadata = DatasetMetadata(df, feature_names, label_name)
     metadata.compute_column_wise_normalisation()
     normalised_df = metadata.get_column_wise_normalisation()
     assert not normalised_df.empty
@@ -71,8 +89,8 @@ def test_compute_column_wise_normalisation_force_recompute(sample_data: pd.DataF
     """Tests the computation of column-wise normalisation with force_recompute=True.
     :param sample_data: The sample data for testing.
     """
-    df, feature_names, label_names = sample_data
-    metadata = DatasetMetadata(df, feature_names, label_names)
+    df, feature_names, label_name = sample_data
+    metadata = DatasetMetadata(df, feature_names, label_name)
     metadata.compute_column_wise_normalisation()
     metadata.compute_column_wise_normalisation(force_recompute=True)
     normalised_df = metadata.get_column_wise_normalisation()
@@ -83,8 +101,8 @@ def test_compute_column_wise_normalisation_without_recompute(sample_data: pd.Dat
     """Tests the computation of column-wise normalisation without recompute.
     :param sample_data: The sample data for testing.
     """
-    df, feature_names, label_names = sample_data
-    metadata = DatasetMetadata(df, feature_names, label_names)
+    df, feature_names, label_name = sample_data
+    metadata = DatasetMetadata(df, feature_names, label_name)
     metadata.compute_column_wise_normalisation()
     metadata.compute_column_wise_normalisation()
     normalised_df = metadata.get_column_wise_normalisation()
@@ -95,8 +113,8 @@ def test_transpose_normalised_column_vectors(sample_data: pd.DataFrame):
     """Tests the transposition of normalised column vectors.
     :param sample_data: The sample data for testing.
     """
-    df, feature_names, label_names = sample_data
-    metadata = DatasetMetadata(df, feature_names, label_names)
+    df, feature_names, label_name = sample_data
+    metadata = DatasetMetadata(df, feature_names, label_name)
     metadata.compute_column_wise_normalisation()
     metadata.transpose_normalised_column_vectors()
     transposed_features = metadata.get_transposed_normalised_features()
@@ -108,8 +126,8 @@ def test_transpose_normalised_column_vectors_without_prior_normalisation(sample_
     """Tests the transposition of normalised column vectors without prior normalisation.
     :param sample_data: The sample data for testing.
     """
-    df, feature_names, label_names = sample_data
-    metadata = DatasetMetadata(df, feature_names, label_names)
+    df, feature_names, label_name = sample_data
+    metadata = DatasetMetadata(df, feature_names, label_name)
     flag_before = metadata.get_column_wise_normalisation_computed()
     metadata.transpose_normalised_column_vectors()
     transposed_features = metadata.get_transposed_normalised_features()
