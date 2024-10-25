@@ -100,9 +100,9 @@ def test_transpose_normalised_column_vectors(sample_data: pd.DataFrame):
     metadata.compute_column_wise_normalisation()
     metadata.transpose_normalised_column_vectors()
     transposed_features = metadata.get_transposed_normalised_features()
-    transposed_labels = metadata.get_transposed_normalised_labels()
+    transposed_label = metadata.get_transposed_normalised_label()
     assert all(isinstance(v, cp.ndarray) for v in transposed_features.values())
-    assert all(isinstance(v, cp.ndarray) for v in transposed_labels.values())
+    assert isinstance(transposed_label, cp.ndarray)
 
 def test_transpose_normalised_column_vectors_without_prior_normalisation(sample_data: pd.DataFrame):
     """Tests the transposition of normalised column vectors without prior normalisation.
@@ -113,8 +113,8 @@ def test_transpose_normalised_column_vectors_without_prior_normalisation(sample_
     flag_before = metadata.get_column_wise_normalisation_computed()
     metadata.transpose_normalised_column_vectors()
     transposed_features = metadata.get_transposed_normalised_features()
-    transposed_labels = metadata.get_transposed_normalised_labels()
+    transposed_label = metadata.get_transposed_normalised_label()
     assert all(isinstance(v, cp.ndarray) for v in transposed_features.values())
-    assert all(isinstance(v, cp.ndarray) for v in transposed_labels.values())
+    assert isinstance(transposed_label, cp.ndarray)
     assert not flag_before
     assert metadata.get_column_wise_normalisation_computed()
