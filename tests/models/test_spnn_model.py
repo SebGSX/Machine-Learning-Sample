@@ -202,3 +202,49 @@ def test_train_linear_regression_with_no_training_setup(sample_data: tuple[pd.Da
     with pytest.raises(Exception) as exception_info:
         model.train_linear_regression()
     assert str(exception_info.value) == expected_message
+
+def test_train_linear_regression_with_plot_results(
+        mocker: MockerFixture
+        , sample_data: tuple[pd.DataFrame, list[str], str]):
+    """Tests the train_linear_regression method with plotting enabled.
+    :param mocker: The mocker fixture for mocking the Plotter class.
+    :param sample_data: The sample data for testing.
+    """
+    df, feature_names, label_name = sample_data
+    mocked_plot = mocker.patch("src.telemetry.plotter.Plotter.plot_2d")
+    cwd = os.getcwd()
+    model = SpnnModel(cwd)
+    model.setup_linear_regression_training(
+        feature_names
+        , label_name
+        , 1e-8
+        , 5
+        , 100
+        , 0.1
+        , "devzohaib/tvmarketingcsv"
+        , "tvmarketing.csv"
+        , df)
+    model.train_linear_regression(plot_results=True)
+    assert mocked_plot.call_count >= 2
+
+def test_train_linear_regression_with_plot_results_and_no_output_directory(mocker: MockerFixture
+        , sample_data: tuple[pd.DataFrame, list[str], str]):
+    """Tests the train_linear_regression method with plotting enabled and no output directory.
+    :param mocker: The mocker fixture for mocking the Plotter class.
+    :param sample_data: The sample data for testing.
+    """
+    df, feature_names, label_name = sample_data
+    mocked_plot = mocker.patch("src.telemetry.plotter.Plotter.plot_2d")
+    model = SpnnModel()
+    model.setup_linear_regression_training(
+        feature_names
+        , label_name
+        , 1e-8
+        , 5
+        , 100
+        , 0.1
+        , "devzohaib/tvmarketingcsv"
+        , "tvmarketing.csv"
+        , df)
+    model.train_linear_regression(plot_results=True)
+    assert mocked_plot.call_count == 1

@@ -45,12 +45,12 @@ class SpnnModel:
     __plotter: Plotter
     __training_setup_completed: bool
 
-    def __init__(self, output_directory: str = ""):
+    def __init__(self, output_directory: str = None):
         """Initializes the SPNN model.
         :param output_directory: The directory for storing the output files.
         """
         try:
-            if not os.path.exists(output_directory):
+            if output_directory is not None and output_directory != "" and not os.path.exists(output_directory):
                 os.makedirs(output_directory)
             self.__output_directory = os.path.abspath(output_directory)
             self.__output_directory_available = True
