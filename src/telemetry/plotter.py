@@ -13,7 +13,18 @@ class Plotter: # pragma: no cover
     __output_directory: str
 
     def __init__(self, output_directory: str = None):
+        """Initializes a new instance of the Plotter class.
+        :param output_directory: The directory to save plots to.
+        """
+        if not output_directory:
+            raise ValueError(co.EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("output_directory"))
+        if not os.path.exists(os.path.normpath(output_directory)):
+            raise ValueError(co.EXCEPTION_MESSAGE_DIRECTORY_DOES_NOT_EXIST_FORMAT.format(output_directory))
         self.__output_directory = output_directory
+
+    def get_output_directory(self) -> str:
+        """Returns the output directory for saving plots."""
+        return self.__output_directory
 
     def plot_2d(
             self
@@ -43,7 +54,7 @@ class Plotter: # pragma: no cover
             raise ValueError(co.EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("x_data_name"))
         if not y_data_name:
             raise ValueError(co.EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("y_data_name"))
-        if not y_hat:
+        if y_hat is None or y_hat.size == 0:
             raise ValueError(co.EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("y_hat"))
         if not plot_title:
             raise ValueError(co.EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("plot_title"))
@@ -76,9 +87,10 @@ class Plotter: # pragma: no cover
         plt.legend()
 
         # Save the plot to a file if requested.
-        if save_file and self.__output_directory is not None and save_file_name is not None:
+        if save_file and self.__output_directory and save_file_name:
             try:
-                plt.savefig(os.path.join(self.__output_directory, save_file_name))
+                save_path = os.path.normpath(os.path.join(self.__output_directory, save_file_name))
+                plt.savefig(save_path)
             except Exception as e:
                 # Print an error message if the plot could not be saved, but do not raise an exception.
                 print("\033[91mFailed to save plot to file: {0}\033[0m".format(e))

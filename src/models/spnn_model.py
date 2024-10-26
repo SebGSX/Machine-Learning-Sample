@@ -21,7 +21,7 @@ class SpnnModel:
     __MODEL_OUTPUT_DIRECTORY_NOT_CREATED_FORMAT = "\033[91mFailed to create output directory: {0}\033[0m"
     __PARTIAL_DERIVATIVE_BIAS_PARAMETER = "db"
     __PARTIAL_DERIVATIVE_WEIGHT_PARAMETER_PREFIX = "dW_"
-    __PLOT_FILE_NAME_FORMAT = "/epoch-{0}.png"
+    __PLOT_FILE_NAME_FORMAT = "epoch-{0}.png"
     __PLOT_TITLE = "Linear Regression"
     __WEIGHT_PARAMETER_PREFIX = "W_"
 
