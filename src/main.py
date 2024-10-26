@@ -1,12 +1,20 @@
 # © 2024 Seb Garrioch. All rights reserved.
 # Published under the MIT License.
-from src.data import DataSetManager, DatasetMetadata
+import pandas as pd
+
+from src.models import SpnnModel
 
 if __name__ == "__main__": # pragma: no cover
-    handle: str = "devzohaib/tvmarketingcsv"
-    manager: DataSetManager = DataSetManager()
-    manager.acquire_kaggle_dataset(handle, "tvmarketing.csv")
-    dataset = manager.get_dataset(handle)
-    metadata: DatasetMetadata = DatasetMetadata(dataset, ["TV"], ["Sales"])
-    metadata.compute_column_wise_normalisation()
-    metadata.transpose_normalised_column_vectors()
+    model = SpnnModel()
+    model.setup_linear_regression_training(
+        ["TV"]
+        , "Sales"
+        , 1e-8
+        , 5
+        , 100
+        , 0.75
+        , "devzohaib/tvmarketingcsv"
+        , "tvmarketing.csv")
+    model.train_linear_regression()
+    y_hat = model.predict(pd.DataFrame({ "TV": [50, 120, 200] }))
+    print(y_hat)
