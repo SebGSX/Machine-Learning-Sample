@@ -1,10 +1,13 @@
 # © 2024 Seb Garrioch. All rights reserved.
 # Published under the MIT License.
 import cupy as cp
+import os as os
 import pandas as pd
 import pytest
 
+from pytest_mock import MockerFixture
 from src.models import SpnnModel
+
 
 @pytest.fixture
 def sample_data():
@@ -18,11 +21,29 @@ def sample_data():
     label_name = "Sales"
     return df, feature_names, label_name
 
-def test_initialization():
+def test_initialisation():
     """Tests the initialisation of the SpnnModel class."""
     model = SpnnModel()
     assert not model.get_converged()
     assert not model.get_training_setup_completed()
+
+def test_initialisation_with_valid_output_directory():
+    """Tests the initialisation of the SpnnModel class with a valid output directory."""
+    cwd = os.getcwd()
+    model = SpnnModel(cwd)
+    assert not model.get_converged()
+    assert not model.get_training_setup_completed()
+
+def test_initialisation_with_nonexistent_output_directory(mocker: MockerFixture):
+    """Tests the initialisation of the SpnnModel class with a nonexistent output directory."""
+    mocked_makedirs = mocker.patch("os.makedirs")
+    # Ensure that the Plotter class is not initialised to avoid raising an exception.
+    mocker.patch("src.telemetry.plotter.Plotter.__init__").return_value = None
+    output_directory = "nonexistent"
+    model = SpnnModel(output_directory)
+    assert not model.get_converged()
+    assert not model.get_training_setup_completed()
+    mocked_makedirs.assert_called_once_with(output_directory)
 
 def test_predict(sample_data: tuple[pd.DataFrame, list[str], str]):
     """Tests the predict method.

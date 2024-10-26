@@ -6,19 +6,19 @@ import matplotlib.pyplot as plt
 import os
 import pandas as pd
 
+from typing import Optional
+
 
 class Plotter: # pragma: no cover
     """Plots training data and incremental learning data to facilitate analysis of the training process."""
 
-    __output_directory: str
+    __output_directory: Optional[str]
 
     def __init__(self, output_directory: str = None):
         """Initializes a new instance of the Plotter class.
         :param output_directory: The directory to save plots to.
         """
-        if not output_directory:
-            raise ValueError(co.EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("output_directory"))
-        if not os.path.exists(os.path.normpath(output_directory)):
+        if output_directory and not os.path.exists(os.path.normpath(output_directory)):
             raise ValueError(co.EXCEPTION_MESSAGE_DIRECTORY_DOES_NOT_EXIST_FORMAT.format(output_directory))
         self.__output_directory = output_directory
 

@@ -22,7 +22,7 @@ def sample_data():
     }
     return SampleData(pd.DataFrame(data), ["TV", "Radio", "Newspaper"], "Sales")
 
-def test_initialization(sample_data: tuple[pd.DataFrame, list[str], str]):
+def test_initialisation(sample_data: tuple[pd.DataFrame, list[str], str]):
     """Tests the initialisation of the DatasetMetadata class.
     :param sample_data: The sample data for testing.
     """
@@ -32,25 +32,25 @@ def test_initialization(sample_data: tuple[pd.DataFrame, list[str], str]):
     assert metadata.get_feature_count() == 3
     assert metadata.get_label_count() == 1
 
-def test_initialization_with_empty_dataframe():
+def test_initialisation_with_empty_dataframe():
     """Tests initializing DatasetMetadata with an empty DataFrame."""
     df = pd.DataFrame()
     with pytest.raises(ValueError):
         DatasetMetadata(df, ["feature"], "label")
 
-def test_initialization_with_empty_feature_names():
+def test_initialisation_with_empty_feature_names():
     """Tests initializing DatasetMetadata with an empty DataFrame."""
     df = pd.DataFrame({"feature": [1, 2, 3]})
     with pytest.raises(ValueError):
         DatasetMetadata(df, [], "label")
 
-def test_initialization_with_empty_label_name():
+def test_initialisation_with_empty_label_name():
     """Tests initializing DatasetMetadata with an empty DataFrame."""
     df = pd.DataFrame({"feature": [1, 2, 3]})
     with pytest.raises(ValueError):
         DatasetMetadata(df, ["feature"], "")
 
-def test_initialization_with_invalid_feature_name(sample_data: tuple[pd.DataFrame, list[str], str]):
+def test_initialisation_with_invalid_feature_name(sample_data: tuple[pd.DataFrame, list[str], str]):
     """Tests initializing DatasetMetadata with an invalid feature name.
     :param sample_data: The sample data for testing.
     """
@@ -58,7 +58,7 @@ def test_initialization_with_invalid_feature_name(sample_data: tuple[pd.DataFram
     with pytest.raises(ValueError):
         DatasetMetadata(df, ["Invalid"], label_name)
 
-def test_initialization_with_invalid_label_name(sample_data: tuple[pd.DataFrame, list[str], str]):
+def test_initialisation_with_invalid_label_name(sample_data: tuple[pd.DataFrame, list[str], str]):
     """Tests initializing DatasetMetadata with an invalid label name.
     :param sample_data: The sample data for testing.
     """

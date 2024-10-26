@@ -38,7 +38,7 @@ class SpnnModel:
     __input_size: int
     __label_name: str
     __learning_rate: float
-    __output_directory: str
+    __output_directory: Optional[str]
     __output_directory_available: bool
     __output_size: int
     __parameters: dict[str, cp.ndarray]
@@ -46,7 +46,19 @@ class SpnnModel:
     __training_setup_completed: bool
 
     def __init__(self, output_directory: str = ""):
-        """Initializes the SPNN model."""
+        """Initializes the SPNN model.
+        :param output_directory: The directory for storing the output files.
+        """
+        try:
+            if not os.path.exists(output_directory):
+                os.makedirs(output_directory)
+            self.__output_directory = os.path.abspath(output_directory)
+            self.__output_directory_available = True
+        except Exception as e:
+            print(self.__MODEL_OUTPUT_DIRECTORY_NOT_CREATED_FORMAT.format(e))
+            self.__output_directory = None
+            self.__output_directory_available = False
+
         self.__column_wise_mean = cp.array([])
         self.__column_wise_standard_deviation = cp.array([])
         self.__converged = False
@@ -60,19 +72,10 @@ class SpnnModel:
         self.__input_size = 0
         self.__label_name = ""
         self.__learning_rate = 0.0
-        self.__output_directory = os.path.abspath(output_directory)
         self.__output_size = 0
         self.__parameters = {}
         self.__plotter = Plotter(self.__output_directory)
         self.__training_setup_completed = False
-
-        try:
-            if not os.path.exists(self.__output_directory):
-                os.makedirs(self.__output_directory)
-            self.__output_directory_available = True
-        except Exception as e:
-            print(self.__MODEL_OUTPUT_DIRECTORY_NOT_CREATED_FORMAT.format(e))
-            self.__output_directory_available = False
 
     def __back_propagation(self, y_hat: cp.ndarray) -> dict[str, cp.ndarray]:
         """Performs back propagation for the SPNN model.

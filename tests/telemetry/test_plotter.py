@@ -28,10 +28,15 @@ def test_initialisation():
     plotter = Plotter(os.getcwd())
     assert plotter.get_output_directory() == os.getcwd()
 
+def test_initialisation_with_none_output_directory():
+    """Tests the initialisation of the Plotter class with a valid output directory."""
+    plotter = Plotter(None)
+    assert plotter.get_output_directory() is None
+
 def test_initialisation_with_empty_output_directory():
     """Tests initialising the Plotter class with an empty output directory."""
-    with pytest.raises(ValueError):
-        Plotter("")
+    plotter = Plotter("")
+    assert plotter.get_output_directory() == ""
 
 def test_initialisation_with_invalid_output_directory():
     """Tests initialising the Plotter class with an invalid output directory."""
