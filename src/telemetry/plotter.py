@@ -1,7 +1,9 @@
 # © 2024 Seb Garrioch. All rights reserved.
 # Published under the MIT License.
+import src.common as co
 import cupy as cp
 import matplotlib.pyplot as plt
+import os
 import pandas as pd
 
 
@@ -35,6 +37,25 @@ class Plotter: # pragma: no cover
         :param save_file_name: The name of the file used to save the plot.
         :param save_file: A flag indicating whether to save the plot to a file.
         """
+        if dataset is None or dataset.empty:
+            raise ValueError(co.EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("dataset"))
+        if not x_data_name:
+            raise ValueError(co.EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("x_data_name"))
+        if not y_data_name:
+            raise ValueError(co.EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("y_data_name"))
+        if not y_hat:
+            raise ValueError(co.EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("y_hat"))
+        if not plot_title:
+            raise ValueError(co.EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("plot_title"))
+        if not x_axis_label:
+            raise ValueError(co.EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("x_axis_label"))
+        if not y_axis_label:
+            raise ValueError(co.EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("y_axis_label"))
+        if x_data_name not in dataset.columns:
+            raise ValueError(co.EXCEPTION_MESSAGE_NOT_IN_DATA_FRAME_FORMAT.format(x_data_name))
+        if y_data_name not in dataset.columns:
+            raise ValueError(co.EXCEPTION_MESSAGE_NOT_IN_DATA_FRAME_FORMAT.format(y_data_name))
+
         # Add the title and axis labels.
         plt.title(plot_title)
         plt.xlabel(x_axis_label)
@@ -51,16 +72,16 @@ class Plotter: # pragma: no cover
         x_values_sorted = x_values[sorted_indices]
 
         # Plot
-        plt.plot(x_values_sorted, y_hat_sorted, color='blue', label='Predicted Line (y_hat)')
+        plt.plot(x_values_sorted, y_hat_sorted, color="blue", label="Predicted Line (y_hat)")
         plt.legend()
 
         # Save the plot to a file if requested.
         if save_file and self.__output_directory is not None and save_file_name is not None:
             try:
-                plt.savefig(self.__output_directory + save_file_name)
+                plt.savefig(os.path.join(self.__output_directory, save_file_name))
             except Exception as e:
                 # Print an error message if the plot could not be saved, but do not raise an exception.
-                print(f'\033[91mFailed to save plot to file: {0}\033[0m'.format(e))
+                print("\033[91mFailed to save plot to file: {0}\033[0m".format(e))
         else:
             plt.show()
         plt.close()

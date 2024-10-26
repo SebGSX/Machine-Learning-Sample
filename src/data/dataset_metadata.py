@@ -1,14 +1,12 @@
 # © 2024 Seb Garrioch. All rights reserved.
 # Published under the MIT License.
+import src.common as co
 import cupy as cp
 import pandas as pd
 
 class DatasetMetadata:
     """Represents metadata about a dataset in tabular format. Columns are expected to represent features or labels while
     rows are expected to represent individual events, experiments, instances, observations, samples, etc."""
-
-    __EXCEPTION_MESSAGE_NOT_IN_DATA_FRAME_FORMAT = "The name '{0}' is not in the data frame."
-    __EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT = "The {0} cannot be None or empty."
 
     __column_wise_mean: pd.DataFrame
     __column_wise_normalisation: pd.DataFrame
@@ -27,18 +25,18 @@ class DatasetMetadata:
         :param label_name: The name of the label in the data_frame.
         """
         if data_frame.empty:
-            raise ValueError(self.__EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("data_frame"))
+            raise ValueError(co.EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("data_frame"))
         if not feature_names:
-            raise ValueError(self.__EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("feature_names"))
+            raise ValueError(co.EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("feature_names"))
         if not label_name:
-            raise ValueError(self.__EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("label_name"))
+            raise ValueError(co.EXCEPTION_MESSAGE_NONE_OR_EMPTY_VALUE_FORMAT.format("label_name"))
 
         for feature_name in feature_names:
             if feature_name not in data_frame.columns:
-                raise ValueError(self.__EXCEPTION_MESSAGE_NOT_IN_DATA_FRAME_FORMAT.format(feature_name))
+                raise ValueError(co.EXCEPTION_MESSAGE_NOT_IN_DATA_FRAME_FORMAT.format(feature_name))
 
         if label_name not in data_frame.columns:
-            raise ValueError(self.__EXCEPTION_MESSAGE_NOT_IN_DATA_FRAME_FORMAT.format(label_name))
+            raise ValueError(co.EXCEPTION_MESSAGE_NOT_IN_DATA_FRAME_FORMAT.format(label_name))
 
         self.__column_wise_normalisation = pd.DataFrame()
         self.__column_wise_normalisation_computed = False
