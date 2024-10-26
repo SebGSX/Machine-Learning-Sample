@@ -26,6 +26,7 @@ marketing and the resulting sales. The result of training the SPNN model on this
 that looks like the following:
 
 ![Training Result.png](./content/Training-Result.png)
+
 *Training Result*
 
 ## Intended Audience
