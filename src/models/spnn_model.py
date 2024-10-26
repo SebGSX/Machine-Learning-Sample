@@ -5,6 +5,7 @@ import pandas as pd
 
 from datetime import datetime
 from src.data import DataSetManager, DatasetMetadata
+from src.telemetry import Plotter
 from typing import Optional
 
 class SpnnModel:
@@ -25,6 +26,8 @@ class SpnnModel:
     __converged: bool
     __convergence_epsilon: float
     __convergence_patience: int
+    __dataset_handle: str
+    __dataset_manager: Optional[DataSetManager]
     __dataset_metadata: Optional[DatasetMetadata]
     __epochs: int
     __feature_names: list[str]
@@ -42,6 +45,8 @@ class SpnnModel:
         self.__converged = False
         self.__convergence_epsilon = 0.0
         self.__convergence_patience = 0
+        self.__dataset_handle = ""
+        self.__dataset_manager = None
         self.__dataset_metadata = None
         self.__epochs = 0
         self.__feature_names = []
@@ -102,6 +107,8 @@ class SpnnModel:
         """Flushes the training setup for the SPNN model but preserves the parameters."""
         self.__convergence_epsilon = 0.0
         self.__convergence_patience = 0
+        self.__dataset_handle = ""
+        self.__dataset_manager = None
         self.__dataset_metadata = None
         self.__epochs = 0
         self.__training_setup_completed = False
@@ -133,6 +140,32 @@ class SpnnModel:
 
         # Add the bias parameter to the pre-activation values to obtain the final Z values.
         return z + param_b
+
+    def __predict(self, inference_data: pd.DataFrame) -> cp.ndarray:
+        """Predicts the output values based on the input values using the SPNN model.
+        :param inference_data: The input values for prediction.
+        """
+        # Normalise the input values using the column-wise mean and standard deviation.
+        normalised_inference_data = (inference_data - self.__column_wise_mean) / self.__column_wise_standard_deviation
+        transposed_normalised_inference_data: dict[str, cp.array] = {}
+        # Transpose the normalised input values to facilitate matrix multiplication (dot product).
+        for feature_name in self.__feature_names:
+            norm = normalised_inference_data[feature_name]
+            transposed_normalised_inference_data[feature_name] = cp.array(norm).reshape(1, len(norm))
+
+        # The number of samples in the inference data.
+        m = transposed_normalised_inference_data[self.__feature_names[0]].shape[1]
+
+        # Perform forward propagation to predict the output values.
+        z: cp.ndarray = cp.zeros((1, m))
+        for i in range(self.__input_size):
+            param_w = self.__parameters[self.__WEIGHT_PARAMETER_PREFIX + str(i)]
+            z = z + cp.matmul(param_w, transposed_normalised_inference_data[self.__feature_names[i]])
+
+        z: cp.ndarray = z + self.__parameters[self.__BIAS_PARAMETER]
+
+        # De-normalise the output values using the column-wise mean and standard deviation.
+        return z * self.__column_wise_standard_deviation[self.__label_name] + self.__column_wise_mean[self.__label_name]
 
     def __update_parameters(self, gradients: dict[str, cp.ndarray]):
         """Updates the parameters (weights and biases) for the SPNN model.
@@ -191,27 +224,7 @@ class SpnnModel:
         if not self.__converged:
             raise Exception(self.__EXCEPTION_MESSAGE_MODEL_NOT_TRAINED)
 
-        # Normalise the input values using the column-wise mean and standard deviation.
-        normalised_inference_data = (inference_data - self.__column_wise_mean) / self.__column_wise_standard_deviation
-        transposed_normalised_inference_data: dict[str, cp.array] = {}
-        # Transpose the normalised input values to facilitate matrix multiplication (dot product).
-        for feature_name in self.__feature_names:
-            norm = normalised_inference_data[feature_name]
-            transposed_normalised_inference_data[feature_name] = cp.array(norm).reshape(1, len(norm))
-
-        # The number of samples in the inference data.
-        m = transposed_normalised_inference_data[self.__feature_names[0]].shape[1]
-
-        # Perform forward propagation to predict the output values.
-        z: cp.ndarray = cp.zeros((1, m))
-        for i in range(self.__input_size):
-            param_w = self.__parameters[self.__WEIGHT_PARAMETER_PREFIX + str(i)]
-            z = z + cp.matmul(param_w, transposed_normalised_inference_data[self.__feature_names[i]])
-
-        z: cp.ndarray = z + self.__parameters[self.__BIAS_PARAMETER]
-
-        # De-normalise the output values using the column-wise mean and standard deviation.
-        return z * self.__column_wise_standard_deviation[self.__label_name] + self.__column_wise_mean[self.__label_name]
+        return self.__predict(inference_data)
 
     def setup_linear_regression_training(
             self
@@ -248,10 +261,13 @@ class SpnnModel:
         self.__training_setup_completed = False
 
         # Acquire the dataset. Cannot be tested due to Kaggle call requirement.
+        self.__dataset_manager = DataSetManager()
+        self.__dataset_handle = handle
         if dataset is None: # pragma: no cover
-            manager = DataSetManager()
-            manager.acquire_kaggle_dataset(handle, file_name)
-            dataset = manager.get_dataset(handle)
+            self.__dataset_manager.acquire_kaggle_dataset(handle, file_name)
+            dataset = self.__dataset_manager.get_dataset(handle)
+        else:
+            self.__dataset_manager.add_dataset(handle, dataset)
 
         # Compute the metadata for the dataset.
         self.__dataset_metadata = DatasetMetadata(dataset, feature_names, label_name)
@@ -280,8 +296,12 @@ class SpnnModel:
         # The training setup is now complete.
         self.__training_setup_completed = True
 
-    def train_linear_regression(self):
-        """Trains the SPNN model using linear regression."""
+    def train_linear_regression(
+            self
+            , plot_results: bool = False):
+        """Trains the SPNN model using linear regression.
+        :param plot_results: Whether to plot the results of the training process.
+        """
         if not self.__training_setup_completed:
             raise Exception(self.__EXCEPTION_MESSAGE_TRAINING_SETUP_NOT_COMPLETED)
 
@@ -313,6 +333,20 @@ class SpnnModel:
         self.__converged = converged
         training_stop_time = datetime.now()
 
+        # Plot the results of the training process.
+        if plot_results:
+            dataset = self.__dataset_manager.get_dataset(self.__dataset_handle)
+            plotter = Plotter("")
+            feature_name = self.__feature_names[0]
+            plotter.plot_2d(
+                dataset
+                , feature_name
+                , self.__label_name
+                , self.__predict(dataset)
+                , "Linear Regression"
+                , feature_name
+                , self.__label_name)
+
         # Prepare the model for prediction. Once flushed, the model can be saved and reloaded.
         if converged:
             self.__flush_training_setup()
@@ -327,6 +361,6 @@ class SpnnModel:
         print("\tFinal weights:")
         for i in range(self.__input_size):
             print(f"\t\t{self.__WEIGHT_PARAMETER_PREFIX + str(i)}:\t\t\t\t"
-                  , self.__parameters[self.__WEIGHT_PARAMETER_PREFIX + str(i)][0][0])
-        print("\tFinal bias:\t\t\t\t", self.__parameters[self.__BIAS_PARAMETER][0][0])
+                  , self.__parameters[self.__WEIGHT_PARAMETER_PREFIX + str(i)].item())
+        print("\tFinal bias:\t\t\t\t", self.__parameters[self.__BIAS_PARAMETER].item())
         print("")

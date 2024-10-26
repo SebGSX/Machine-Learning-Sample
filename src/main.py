@@ -15,6 +15,6 @@ if __name__ == "__main__": # pragma: no cover
         , 0.75
         , "devzohaib/tvmarketingcsv"
         , "tvmarketing.csv")
-    model.train_linear_regression()
+    model.train_linear_regression(True)
     y_hat = model.predict(pd.DataFrame({ "TV": [50, 120, 200] }))
     print(y_hat)
