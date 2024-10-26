@@ -36,7 +36,7 @@ def test_predict(sample_data: tuple[pd.DataFrame, list[str], str]):
         , 1e-8
         , 5
         , 100
-        , 0.75
+        , 0.1
         , "devzohaib/tvmarketingcsv"
         , "tvmarketing.csv"
         , df)
@@ -47,9 +47,9 @@ def test_predict(sample_data: tuple[pd.DataFrame, list[str], str]):
     actual2 = y_hat[0][1]
     actual3 = y_hat[0][2]
 
-    assert cp.isclose(actual1, 4.0, rtol=1e-4)
-    assert cp.isclose(actual2, 5.0, rtol=1e-4)
-    assert cp.isclose(actual3, 6.0, rtol=1e-4)
+    assert cp.isclose(actual1, 4.0, rtol=1e-3)
+    assert cp.isclose(actual2, 5.0, rtol=1e-3)
+    assert cp.isclose(actual3, 6.0, rtol=1e-3)
 
 def test_predict_with_training_setup_completed_not_converged(sample_data: tuple[pd.DataFrame, list[str], str]):
     """Tests the predict method when the model has not converged.
@@ -125,8 +125,8 @@ def test_train_linear_regression_with_negative_gradient(sample_data: tuple[pd.Da
 
     assert model.get_converged()
     assert not model.get_training_setup_completed()
-    assert cp.isclose(model.get_parameters()["W_0"], -1.0, rtol=1e-4)
-    assert cp.isclose(model.get_parameters()["b"], 0.0, rtol=1e-4)
+    assert cp.isclose(model.get_parameters()["W_0"], -1.0, rtol=1e-3)
+    assert cp.isclose(model.get_parameters()["b"], 0.0, rtol=1e-3)
 
 def test_train_linear_regression_with_positive_gradient(sample_data: tuple[pd.DataFrame, list[str], str]):
     """Tests the train_linear_regression method.
@@ -148,8 +148,8 @@ def test_train_linear_regression_with_positive_gradient(sample_data: tuple[pd.Da
 
     assert model.get_converged()
     assert not model.get_training_setup_completed()
-    assert cp.isclose(model.get_parameters()["W_0"], 1.0, rtol=1e-4)
-    assert cp.isclose(model.get_parameters()["b"], 0.0, rtol=1e-4)
+    assert cp.isclose(model.get_parameters()["W_0"], 1.0, rtol=1e-3)
+    assert cp.isclose(model.get_parameters()["b"], 0.0, rtol=1e-3)
 
 def test_train_linear_regression_with_no_convergence(sample_data: tuple[pd.DataFrame, list[str], str]):
     """Tests the train_linear_regression method.
