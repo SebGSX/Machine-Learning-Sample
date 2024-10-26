@@ -1,6 +1,7 @@
 # © 2024 Seb Garrioch. All rights reserved.
 # Published under the MIT License.
 import cupy as cp
+import os
 import pandas as pd
 
 from datetime import datetime
@@ -19,6 +20,8 @@ class SpnnModel:
     __EXCEPTION_MESSAGE_TRAINING_SETUP_NOT_COMPLETED = "The training setup has not been completed."
     __PARTIAL_DERIVATIVE_BIAS_PARAMETER = "db"
     __PARTIAL_DERIVATIVE_WEIGHT_PARAMETER_PREFIX = "dW_"
+    __PLOT_FILE_NAME_FORMAT = "/epoch-{0}.png"
+    __PLOT_TITLE = "Linear Regression"
     __WEIGHT_PARAMETER_PREFIX = "W_"
 
     __column_wise_mean: cp.ndarray
@@ -34,11 +37,13 @@ class SpnnModel:
     __input_size: int
     __label_name: str
     __learning_rate: float
+    __output_directory: str
     __output_size: int
     __parameters: dict[str, cp.ndarray]
+    __plotter: Plotter
     __training_setup_completed: bool
 
-    def __init__(self):
+    def __init__(self, output_directory: str = None):
         """Initializes the SPNN model."""
         self.__column_wise_mean = cp.array([])
         self.__column_wise_standard_deviation = cp.array([])
@@ -53,9 +58,18 @@ class SpnnModel:
         self.__input_size = 0
         self.__label_name = ""
         self.__learning_rate = 0.0
+        self.__output_directory = os.path.abspath(output_directory)
         self.__output_size = 0
         self.__parameters = {}
+        self.__plotter = Plotter(self.__output_directory)
         self.__training_setup_completed = False
+
+        try:
+            if not os.path.exists(self.__output_directory):
+                os.makedirs(self.__output_directory)
+        except Exception as e:
+            print(f"\033[91mFailed to create output directory: {0}\033[0m".format(e))
+            raise e
 
     def __back_propagation(self, y_hat: cp.ndarray) -> dict[str, cp.ndarray]:
         """Performs back propagation for the SPNN model.
@@ -330,15 +344,29 @@ class SpnnModel:
             gradients = self.__back_propagation(y_hat)
             self.__update_parameters(gradients)
 
+            # Plot the results of the training process, if requested.
+            if plot_results and self.__input_size == 1:
+                dataset = self.__dataset_manager.get_dataset(self.__dataset_handle)
+                feature_name = self.__feature_names[0]
+                self.__plotter.plot_2d(
+                    dataset
+                    , feature_name
+                    , self.__label_name
+                    , self.__predict(dataset)
+                    , self.__PLOT_TITLE
+                    , feature_name
+                    , self.__label_name
+                    , self.__PLOT_FILE_NAME_FORMAT.format(i)
+                    , True)
+
         self.__converged = converged
         training_stop_time = datetime.now()
 
         # Plot the results of the training process.
-        if plot_results:
+        if plot_results and self.__input_size == 1:
             dataset = self.__dataset_manager.get_dataset(self.__dataset_handle)
-            plotter = Plotter("")
             feature_name = self.__feature_names[0]
-            plotter.plot_2d(
+            self.__plotter.plot_2d(
                 dataset
                 , feature_name
                 , self.__label_name

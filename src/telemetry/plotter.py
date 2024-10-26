@@ -59,6 +59,8 @@ class Plotter: # pragma: no cover
             try:
                 plt.savefig(self.__output_directory + save_file_name)
             except Exception as e:
-                print('Failed to save plot to file: ', str(e))
+                # Print an error message if the plot could not be saved, but do not raise an exception.
+                print(f'\033[91mFailed to save plot to file: {0}\033[0m'.format(e))
         else:
             plt.show()
+        plt.close()

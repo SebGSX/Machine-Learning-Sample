@@ -5,7 +5,7 @@ import pandas as pd
 from src.models import SpnnModel
 
 if __name__ == "__main__": # pragma: no cover
-    model = SpnnModel()
+    model = SpnnModel("../output/")
     model.setup_linear_regression_training(
         ["TV"]
         , "Sales"
