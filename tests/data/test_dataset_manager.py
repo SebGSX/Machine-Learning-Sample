@@ -45,6 +45,13 @@ def test_get_dataset(manager: DataSetManager, sample_data: pd.DataFrame):
     assert manager.get_dataset(HANDLE)["Newspaper"].tolist() == [69.2, 45.1, 69.3]
     assert manager.get_dataset(HANDLE)["Sales"].tolist() == [22.1, 10.4, 9.3]
 
+def test_get_dataset_with_nonexistent(manager: DataSetManager):
+    """Test retrieving a dataset that does not exist raises a KeyError.
+    :param manager: The DataSetManager instance.
+    """
+    with pytest.raises(KeyError):
+        manager.get_dataset(HANDLE)
+
 def test_get_dataset_count(manager: DataSetManager, sample_data: pd.DataFrame):
     """Test counting the number of datasets.
     :param manager: The DataSetManager instance.
@@ -63,6 +70,17 @@ def test_add_dataset(manager: DataSetManager, sample_data: pd.DataFrame):
     manager.add_dataset(HANDLE, sample_data)
     assert manager.get_dataset(HANDLE)["Newspaper"].tolist() == [69.2, 45.1, 69.3]
     assert manager.get_dataset(HANDLE)["Sales"].tolist() == [22.1, 10.4, 9.3]
+
+def test_add_dataset_with_duplicate(manager: DataSetManager, sample_data: pd.DataFrame):
+    """Test adding a dataset.
+    :param manager: The DataSetManager instance.
+    :param sample_data: The sample data for testing.
+    """
+    manager.add_dataset(HANDLE, sample_data)
+    try:
+        manager.add_dataset(HANDLE, sample_data)
+    except:
+        assert False
 
 def test_clear_datasets(manager: DataSetManager, sample_data: pd.DataFrame):
     """Test clearing all datasets.
@@ -86,7 +104,7 @@ def test_remove_dataset(manager: DataSetManager, sample_data: pd.DataFrame):
     manager.remove_dataset(test_handle)
     assert manager.get_datasets() == { HANDLE: sample_data }
 
-def test_remove_dataset_nonexistent(manager: DataSetManager):
+def test_remove_dataset_with_nonexistent(manager: DataSetManager):
     """Test removing a dataset that does not exist.
     :param manager: The DataSetManager instance.
     """
