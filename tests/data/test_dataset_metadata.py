@@ -4,7 +4,12 @@ import cupy as cp
 import pandas as pd
 import pytest
 
+from collections import namedtuple
 from src.data import DatasetMetadata
+
+SampleData = namedtuple(
+    "SampleData"
+    , ["data_frame", "feature_names", "label_name"])
 
 @pytest.fixture
 def sample_data():
@@ -15,7 +20,7 @@ def sample_data():
         "Newspaper": [69.2, 45.1, 69.3],
         "Sales": [22.1, 10.4, 9.3]
     }
-    return pd.DataFrame(data), ["TV", "Radio", "Newspaper"], "Sales"
+    return SampleData(pd.DataFrame(data), ["TV", "Radio", "Newspaper"], "Sales")
 
 def test_initialization(sample_data: tuple[pd.DataFrame, list[str], str]):
     """Tests the initialisation of the DatasetMetadata class.
@@ -167,3 +172,30 @@ def test_transpose_normalised_column_vectors_without_prior_normalisation(sample_
     assert isinstance(transposed_label, cp.ndarray)
     assert not flag_before
     assert metadata.get_column_wise_normalisation_computed()
+
+def test_transposed_feature_shapes(sample_data):
+    """Tests that transposed normalised features have expected shapes.
+    :param sample_data: The sample data
+    """
+    df, feature_names, label_name = sample_data
+    metadata = DatasetMetadata(df, feature_names, label_name)
+    metadata.compute_column_wise_normalisation()
+    metadata.transpose_normalised_column_vectors()
+    transposed_features = metadata.get_transposed_normalised_features()
+
+    for feature_name in feature_names:
+        assert transposed_features[feature_name].shape == (1, len(df))
+
+    transposed_label = metadata.get_transposed_normalised_label()
+    assert transposed_label.shape == (1, len(df))
+
+def test_transposed_label_shapes(sample_data):
+    """Tests that transposed normalised labels have expected shapes.
+    :param sample_data: The sample data
+    """
+    df, feature_names, label_name = sample_data
+    metadata = DatasetMetadata(df, feature_names, label_name)
+    metadata.compute_column_wise_normalisation()
+    metadata.transpose_normalised_column_vectors()
+    transposed_label = metadata.get_transposed_normalised_label()
+    assert transposed_label.shape == (1, len(df))
