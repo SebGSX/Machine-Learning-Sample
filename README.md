@@ -125,7 +125,8 @@ indirection. This would make the code harder to understand and maintain without 
 ## Sample Datasets
 
 The following datasets are used in the code:
-1. [TV Marketing](https://www.kaggle.com/datasets/devzohaib/tvmarketingcsv/data)
+1. [TV Marketing](https://www.kaggle.com/datasets/devzohaib/tvmarketingcsv/data) - A dataset containing the amount
+   spent on TV marketing and the resulting sales. The dataset is used to demonstrate linear regression.
 
 ## Acknowledgements
 
@@ -136,6 +137,7 @@ The author would like to acknowledge the following individuals and organisations
    [Calculus for Machine Learning and Data Science](https://www.coursera.org/learn/machine-learning-calculus?specialization=mathematics-for-machine-learning-and-data-science)
    course within the
    [Mathematics for Machine Learning and Data Science Specialization](https://www.coursera.org/specializations/mathematics-for-machine-learning-and-data-science).
+2. The user "[devzohaib](https://www.kaggle.com/devzohaib)" on Kaggle for providing the TV Marketing dataset.
 
 ## References
 
