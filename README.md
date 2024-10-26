@@ -118,6 +118,12 @@ indirection. This would make the code harder to understand and maintain without 
 The following datasets are used in the code:
 1. [TV Marketing](https://www.kaggle.com/datasets/devzohaib/tvmarketingcsv/data)
 
+## Acknowledgements
+
+The author would like to acknowledge the following individuals and organisations:
+1. Luis Serrano in association with DeepLearning.AI for the inspiration to create this project. Their courses on
+   Coursera delving into the mathematics of machine learning and data science prompted me to create this project. 
+
 ## References
 
 - [NVIDIA CUDA Toolkit 12.4 Installation](https://developer.nvidia.com/cuda-12-4-0-download-archive)
