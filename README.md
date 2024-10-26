@@ -20,6 +20,9 @@ The project includes the following key components:
    handles transposing features and labels within the dataset to facilitate matrix operations.
 4. **Tests:** The `tests` directory contains unit tests for the `SpnnModel`, `DataSetManager`, and `DatasetMetadata`
    classes. The aim of the tests is to demonstrate that even seemingly unwieldy code can be tested effectively.
+5. **Plotter:** The `Plotter` class in `src/telemetry/plotter.py` provides for plotting the training results of the SPNN
+   model. It uses the `matplotlib` library to create a scatter plot of the dataset and a line plot of the training
+   results.
 
 For the dataset, the project uses the TV Marketing dataset from Kaggle. The dataset contains the amount spent on TV
 marketing and the resulting sales. The result of training the SPNN model on this dataset is a linear regression model
