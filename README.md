@@ -32,6 +32,13 @@ that looks like the following:
 
 *Training Result*
 
+For the purposes of illustration, below is an animation of the training progress as the SPNN model learns the linear 
+regression model from the TV Marketing dataset:
+
+![Training Progress.gif](./content/Training-Progress-Animation.gif)
+
+*Training Progress Animation*
+
 ## Intended Audience
 
 The project is written for developers who are interested in exploring machine learning. There is an assumption that the
