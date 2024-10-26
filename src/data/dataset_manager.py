@@ -12,6 +12,24 @@ class DataSetManager:
         """Initializes the dataset manager."""
         self.datasets: dict = {}
 
+    def get_datasets(self) -> dict:
+        """Gets the dictionary of datasets.
+        :return: The dictionary of datasets.
+        """
+        return self.datasets
+
+    def get_dataset(self, handle: str) -> pd.DataFrame:
+        """Gets a dataset from the dictionary of datasets using its Kaggle handle.
+        :return: The dataset.
+        """
+        return self.datasets[handle]
+
+    def get_dataset_count(self) -> int:
+        """Gets the number of datasets in the list.
+        :return: The number of datasets.
+        """
+        return len(self.datasets)
+
     def acquire_kaggle_dataset(self, handle: str, file_name: str, force_download: bool = False): # pragma: no cover
         """Acquires a new dataset from Kaggle.
         :param handle: The dataset's Kaggle handle.
@@ -38,30 +56,13 @@ class DataSetManager:
         """
         self.datasets[handle] = dataset
 
-    def get_datasets(self) -> dict:
-        """Gets the dictionary of datasets.
-        :return: The dictionary of datasets.
-        """
-        return self.datasets
-
-    def get_dataset(self, handle: str) -> pd.DataFrame:
-        """Gets a dataset from the dictionary of datasets using its Kaggle handle.
-        :return: The dataset.
-        """
-        return self.datasets[handle]
-
-    def get_dataset_count(self) -> int:
-        """Gets the number of datasets in the list.
-        :return: The number of datasets.
-        """
-        return len(self.datasets)
+    def clear_datasets(self):
+        """Clears the dictionary of datasets."""
+        self.datasets.clear()
 
     def remove_dataset(self, handle: str):
         """Removes a dataset from the dictionary of datasets.
         :param handle: The Kaggle handle of the dataset to remove.
         """
-        self.datasets.pop(handle)
-
-    def clear_datasets(self):
-        """Clears the dictionary of datasets."""
-        self.datasets.clear()
+        if handle in self.datasets:
+            self.datasets.pop(handle)
