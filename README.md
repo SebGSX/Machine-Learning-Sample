@@ -21,6 +21,13 @@ The project includes the following key components:
 4. **Tests:** The `tests` directory contains unit tests for the `SpnnModel`, `DataSetManager`, and `DatasetMetadata`
    classes. The aim of the tests is to demonstrate that even seemingly unwieldy code can be tested effectively.
 
+For the dataset, the project uses the TV Marketing dataset from Kaggle. The dataset contains the amount spent on TV
+marketing and the resulting sales. The result of training the SPNN model on this dataset is a linear regression model
+that looks like the following:
+
+![Training Result.png](./content/Training-Result.png)
+*Training Result*
+
 ## Intended Audience
 
 The project is written for developers who are interested in exploring machine learning. There is an assumption that the
