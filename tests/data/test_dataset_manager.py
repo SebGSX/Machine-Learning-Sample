@@ -23,15 +23,6 @@ def sample_data() -> pd.DataFrame:
     }
     return pd.DataFrame(data)
 
-def test_add_dataset(manager: DataSetManager, sample_data: pd.DataFrame):
-    """Test adding a dataset.
-    :param manager: The DataSetManager instance.
-    :param sample_data: The sample data for testing.
-    """
-    manager.add_dataset(HANDLE, sample_data)
-    assert manager.get_dataset(HANDLE)["Newspaper"].tolist() == [69.2, 45.1, 69.3]
-    assert manager.get_dataset(HANDLE)["Sales"].tolist() == [22.1, 10.4, 9.3]
-
 def test_get_datasets(manager: DataSetManager, sample_data: pd.DataFrame):
     """Test retrieving all datasets.
     :param manager: The DataSetManager instance.
@@ -64,16 +55,14 @@ def test_get_dataset_count(manager: DataSetManager, sample_data: pd.DataFrame):
     manager.add_dataset(test_handle, sample_data)
     assert manager.get_dataset_count() == 2
 
-def test_remove_dataset(manager: DataSetManager, sample_data: pd.DataFrame):
-    """Test removing a dataset by index.
+def test_add_dataset(manager: DataSetManager, sample_data: pd.DataFrame):
+    """Test adding a dataset.
     :param manager: The DataSetManager instance.
     :param sample_data: The sample data for testing.
     """
-    test_handle: str = "test/testcsv2"
     manager.add_dataset(HANDLE, sample_data)
-    manager.add_dataset(test_handle, sample_data)
-    manager.remove_dataset(test_handle)
-    assert manager.get_datasets() == { HANDLE: sample_data }
+    assert manager.get_dataset(HANDLE)["Newspaper"].tolist() == [69.2, 45.1, 69.3]
+    assert manager.get_dataset(HANDLE)["Sales"].tolist() == [22.1, 10.4, 9.3]
 
 def test_clear_datasets(manager: DataSetManager, sample_data: pd.DataFrame):
     """Test clearing all datasets.
@@ -85,3 +74,23 @@ def test_clear_datasets(manager: DataSetManager, sample_data: pd.DataFrame):
     manager.add_dataset(test_handle, sample_data)
     manager.clear_datasets()
     assert manager.get_datasets() == {}
+
+def test_remove_dataset(manager: DataSetManager, sample_data: pd.DataFrame):
+    """Test removing a dataset by index.
+    :param manager: The DataSetManager instance.
+    :param sample_data: The sample data for testing.
+    """
+    test_handle: str = "test/testcsv2"
+    manager.add_dataset(HANDLE, sample_data)
+    manager.add_dataset(test_handle, sample_data)
+    manager.remove_dataset(test_handle)
+    assert manager.get_datasets() == { HANDLE: sample_data }
+
+def test_remove_dataset_nonexistent(manager: DataSetManager):
+    """Test removing a dataset that does not exist.
+    :param manager: The DataSetManager instance.
+    """
+    try:
+        manager.remove_dataset(HANDLE)
+    except:
+        assert False
