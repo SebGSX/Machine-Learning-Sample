@@ -131,7 +131,11 @@ The following datasets are used in the code:
 
 The author would like to acknowledge the following individuals and organisations:
 1. Luis Serrano in association with DeepLearning.AI for the inspiration to create this project. Their courses on
-   Coursera delving into the mathematics of machine learning and data science prompted me to create this project. 
+   Coursera delving into the mathematics of machine learning and data science prompted me to create this project. The
+   code is based on the *Regression with Perceptron* lab from week 3 of the 
+   [Calculus for Machine Learning and Data Science](https://www.coursera.org/learn/machine-learning-calculus?specialization=mathematics-for-machine-learning-and-data-science)
+   course within the
+   [Mathematics for Machine Learning and Data Science Specialization](https://www.coursera.org/specializations/mathematics-for-machine-learning-and-data-science).
 
 ## References
 
