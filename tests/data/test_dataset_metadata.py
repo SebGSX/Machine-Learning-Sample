@@ -15,10 +15,7 @@ def sample_data():
         "Newspaper": [69.2, 45.1, 69.3],
         "Sales": [22.1, 10.4, 9.3]
     }
-    df = pd.DataFrame(data)
-    feature_names = ["TV", "Radio", "Newspaper"]
-    label_name = "Sales"
-    return df, feature_names, label_name
+    return pd.DataFrame(data), ["TV", "Radio", "Newspaper"], "Sales"
 
 def test_initialization(sample_data: tuple[pd.DataFrame, list[str], str]):
     """Tests the initialisation of the DatasetMetadata class.
@@ -29,6 +26,40 @@ def test_initialization(sample_data: tuple[pd.DataFrame, list[str], str]):
     assert metadata.get_column_wise_normalisation().empty
     assert metadata.get_feature_count() == 3
     assert metadata.get_label_count() == 1
+
+def test_initialization_with_empty_dataframe():
+    """Tests initializing DatasetMetadata with an empty DataFrame."""
+    df = pd.DataFrame()
+    with pytest.raises(ValueError):
+        DatasetMetadata(df, ["feature"], "label")
+
+def test_initialization_with_empty_feature_names():
+    """Tests initializing DatasetMetadata with an empty DataFrame."""
+    df = pd.DataFrame({"feature": [1, 2, 3]})
+    with pytest.raises(ValueError):
+        DatasetMetadata(df, [], "label")
+
+def test_initialization_with_empty_label_name():
+    """Tests initializing DatasetMetadata with an empty DataFrame."""
+    df = pd.DataFrame({"feature": [1, 2, 3]})
+    with pytest.raises(ValueError):
+        DatasetMetadata(df, ["feature"], "")
+
+def test_initialization_with_invalid_feature_name(sample_data: tuple[pd.DataFrame, list[str], str]):
+    """Tests initializing DatasetMetadata with an invalid feature name.
+    :param sample_data: The sample data for testing.
+    """
+    df, feature_names, label_name = sample_data
+    with pytest.raises(ValueError):
+        DatasetMetadata(df, ["Invalid"], label_name)
+
+def test_initialization_with_invalid_label_name(sample_data: tuple[pd.DataFrame, list[str], str]):
+    """Tests initializing DatasetMetadata with an invalid label name.
+    :param sample_data: The sample data for testing.
+    """
+    df, feature_names, label_name = sample_data
+    with pytest.raises(ValueError):
+        DatasetMetadata(df, feature_names, "Invalid")
 
 def test_get_column_wise_mean(sample_data: tuple[pd.DataFrame, list[str], str]):
     """Tests the get_column_wise_mean method.
