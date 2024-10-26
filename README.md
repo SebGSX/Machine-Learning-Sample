@@ -8,17 +8,17 @@ the mathematics, statistics, and algorithms work using a purposefully contrived 
 
 The project includes the following key components:
 
-1. **SPNN (pronounced "spin") Model: ** The `SpnnModel` class in `src/models/spnn_model.py` implements a single
+1. **SPNN (pronounced "spin") Model:** The `SpnnModel` class in `src/models/spnn_model.py` implements a single
    perceptron neural network model. It includes methods for setting up linear regression training
    (`setup_linear_regression_training()`), training the model (`train_linear_regression()`), and making predictions
    (`predict()`).
-2. **Dataset Manager: ** The `DataSetManager` class in `src/data/dataset_manager.py` handles the acquisition and
+2. **Dataset Manager:** The `DataSetManager` class in `src/data/dataset_manager.py` handles the acquisition and
    management of datasets. It uses the `kagglehub` library to download datasets from Kaggle and stores them in a
    dictionary for easy access.
-3. **Dataset Metadata: ** The `DatasetMetadata` class in `src/data/dataset_metadata.py` handles metadata for a given
+3. **Dataset Metadata:** The `DatasetMetadata` class in `src/data/dataset_metadata.py` handles metadata for a given
    dataset. It simplifies the process of computing column-wise mean, standard deviation, and normalisation. It also
    handles transposing features and labels within the dataset to facilitate matrix operations.
-4. **Tests: ** The `tests` directory contains unit tests for the `SpnnModel`, `DataSetManager`, `DatasetMetadata`
+4. **Tests:** The `tests` directory contains unit tests for the `SpnnModel`, `DataSetManager`, `DatasetMetadata`
    classes. The aim of the tests is to demonstrate that even seemingly unwieldy code can be tested effectively.
 
 ## Intended Audience
