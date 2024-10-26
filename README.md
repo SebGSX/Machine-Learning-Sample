@@ -18,7 +18,7 @@ The project includes the following key components:
 3. **Dataset Metadata:** The `DatasetMetadata` class in `src/data/dataset_metadata.py` handles metadata for a given
    dataset. It simplifies the process of computing column-wise mean, standard deviation, and normalisation. It also
    handles transposing features and labels within the dataset to facilitate matrix operations.
-4. **Tests:** The `tests` directory contains unit tests for the `SpnnModel`, `DataSetManager`, `DatasetMetadata`
+4. **Tests:** The `tests` directory contains unit tests for the `SpnnModel`, `DataSetManager`, and `DatasetMetadata`
    classes. The aim of the tests is to demonstrate that even seemingly unwieldy code can be tested effectively.
 
 ## Intended Audience
@@ -36,6 +36,15 @@ following concepts:
 
 Contributions are welcome as are corrections. The author follows Crocker's Rules. Direct, honest, and constructive
 feedback is appreciated. Please submit a pull request with your changes or an issue with your feedback.
+
+## License
+
+The project is licensed under the MIT License. Please see the `LICENSE` file for more information.
+
+## Further Development
+
+The project is a work in progress. More complex models will be added over time to provide a comprehensive overview of
+machine learning.
 
 ## Getting Started
 
