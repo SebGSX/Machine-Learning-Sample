@@ -1,5 +1,42 @@
 # Machine Learning Sample
 
+## Overview
+
+This repository contains a sample machine learning project that demonstrates the inner workings of machine learning
+using a GPU without relying on machine learning frameworks. The intention is to provide an under-the-hood look at how
+the mathematics, statistics, and algorithms work using a purposefully contrived example.
+
+The project includes the following key components:
+
+1. **SPNN (pronounced "spin") Model: ** The `SpnnModel` class in `src/models/spnn_model.py` implements a single
+   perceptron neural network model. It includes methods for setting up linear regression training
+   (`setup_linear_regression_training()`), training the model (`train_linear_regression()`), and making predictions
+   (`predict()`).
+2. **Dataset Manager: ** The `DataSetManager` class in `src/data/dataset_manager.py` handles the acquisition and
+   management of datasets. It uses the `kagglehub` library to download datasets from Kaggle and stores them in a
+   dictionary for easy access.
+3. **Dataset Metadata: ** The `DatasetMetadata` class in `src/data/dataset_metadata.py` handles metadata for a given
+   dataset. It simplifies the process of computing column-wise mean, standard deviation, and normalisation. It also
+   handles transposing features and labels within the dataset to facilitate matrix operations.
+4. **Tests: ** The `tests` directory contains unit tests for the `SpnnModel`, `DataSetManager`, `DatasetMetadata`
+   classes. The aim of the tests is to demonstrate that even seemingly unwieldy code can be tested effectively.
+
+## Intended Audience
+
+The project is written for developers who are interested in exploring machine learning. There is an assumption that the
+reader is proficient in Python and understands mathematics, statistics, and algorithms. The project relies on the
+following concepts:
+- Linear algebra
+- Differential calculus (including partial derivatives)
+- Matrices and vectors
+- Means, standard deviations, and variances
+- Linear regression and gradient descent
+
+## Contributing
+
+Contributions are welcome as are corrections. The author follows Crocker's Rules. Direct, honest, and constructive
+feedback is appreciated. Please submit a pull request with your changes or an issue with your feedback.
+
 ## Getting Started
 
 ### Note to Windows Users
