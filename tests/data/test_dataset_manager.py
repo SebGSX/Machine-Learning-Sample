@@ -40,8 +40,7 @@ def test_get_datasets(manager: DataSetManager, sample_data: pd.DataFrame):
     test_handle: str = "test/testcsv2"
     manager.add_dataset(HANDLE, sample_data)
     manager.add_dataset(test_handle, sample_data)
-    assert manager.get_datasets() == \
-           {
+    assert manager.get_datasets() == {
                 HANDLE: sample_data,
                 test_handle: sample_data
            }
