@@ -1,5 +1,9 @@
 # Machine Learning Sample
 
+[![GitHub tag](https://img.shields.io/github/tag/SebGSX/Machine-Learning-Sample?include_prereleases=&sort=semver&color=blue)](https://github.com/SebGSX/Machine-Learning-Sample/releases/)
+[![License](https://img.shields.io/badge/License-MIT-blue)](#license)
+[![issues - Machine-Learning-Sample](https://img.shields.io/github/issues/SebGSX/Machine-Learning-Sample)](https://github.com/SebGSX/Machine-Learning-Sample/issues)
+
 ## Overview
 
 This repository contains a sample machine learning project that demonstrates the inner workings of machine learning
