@@ -1,0 +1,16 @@
+{
+  "kaggle": {
+    "active_dataset": 0,
+    "datasets": [
+      {
+        "feature_names": [
+          "TV"
+        ],
+        "file_name": "tvmarketing.csv",
+        "handle": "devzohaib/tvmarketingcsv",
+        "label": "Sales",
+        "name": "tv-marketing"
+      }
+    ]
+  }
+}
