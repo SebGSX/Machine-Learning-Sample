@@ -1,5 +1,9 @@
 # Machine Learning Sample
 
+[![GitHub tag](https://img.shields.io/github/tag/SebGSX/Machine-Learning-Sample?include_prereleases=&sort=semver&color=blue)](https://github.com/SebGSX/Machine-Learning-Sample/releases/)
+[![License](https://img.shields.io/badge/License-MIT-blue)](#license)
+[![issues - Machine-Learning-Sample](https://img.shields.io/github/issues/SebGSX/Machine-Learning-Sample)](https://github.com/SebGSX/Machine-Learning-Sample/issues)
+
 ## Overview
 
 This repository contains a sample machine learning project that demonstrates the inner workings of machine learning
@@ -49,20 +53,6 @@ following concepts:
 - Matrices and vectors
 - Means, standard deviations, and variances
 - Linear regression and gradient descent
-
-## Contributing
-
-Contributions are welcome as are corrections. The author follows Crocker's Rules. Direct, honest, and constructive
-feedback is appreciated. Please submit a pull request with your changes or an issue with your feedback.
-
-## License
-
-The project is licensed under the MIT License. Please see the `LICENSE` file for more information.
-
-## Further Development
-
-The project is a work in progress. More complex models will be added over time to provide a comprehensive overview of
-machine learning.
 
 ## Getting Started
 
@@ -139,6 +129,20 @@ While I don't like tightly coupling code, it is necessary in this context. For e
 coupled to KaggleHub and Pandas. At the time of writing, Python doesn't support interfaces. While I could use duck
 typing or an abstract base class, doing so would overcomplicate the code by burying the tight coupling under layers of
 indirection. This would make the code harder to understand and maintain without the benefit of solving the issue.
+
+## Contributing
+
+Contributions are welcome as are corrections. The author follows Crocker's Rules. Direct, honest, and constructive
+feedback is appreciated. Please submit a pull request with your changes or an issue with your feedback.
+
+## License
+
+Released under [MIT](/LICENSE) by [@SebGSX](https://github.com/SebGSX) (Seb Garrioch).
+
+## Further Development
+
+The project is a work in progress. More complex models will be added over time to provide a comprehensive overview of
+machine learning.
 
 ## Sample Datasets
 
