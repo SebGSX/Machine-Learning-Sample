@@ -99,7 +99,6 @@ def test_predict_with_training_setup_not_completed_not_converged(sample_data: tu
     """Tests the predict method when the model has not converged.
     :param sample_data: The sample data for testing.
     """
-    df, feature_names, label_name = sample_data
     model = SpnnModel()
     expected_message = "The model has not been trained."
     with pytest.raises(Exception) as exception_info:
@@ -202,7 +201,6 @@ def test_train_linear_regression_with_no_training_setup(sample_data: tuple[pd.Da
     """Tests the train_linear_regression method.
     :param sample_data: The sample data for testing.
     """
-    df, feature_names, label_name = sample_data
     model = SpnnModel()
     expected_message = "The training setup has not been completed."
     with pytest.raises(Exception) as exception_info:
