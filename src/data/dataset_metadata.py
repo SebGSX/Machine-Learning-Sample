@@ -8,6 +8,7 @@ class DatasetMetadata:
     """Represents metadata about a dataset in tabular format. Columns are expected to represent features or labels while
     rows are expected to represent individual events, experiments, instances, observations, samples, etc."""
 
+    __active_columns_names: list[str]
     __column_wise_mean: pd.DataFrame
     __column_wise_normalisation: pd.DataFrame
     __column_wise_normalisation_computed: bool
@@ -38,9 +39,10 @@ class DatasetMetadata:
         if label_name not in data_frame.columns:
             raise ValueError(co.EXCEPTION_MESSAGE_NOT_IN_DATA_FRAME_FORMAT.format(label_name))
 
+        self.__active_columns_names = feature_names + [label_name]
         self.__column_wise_normalisation = pd.DataFrame()
         self.__column_wise_normalisation_computed = False
-        self.__data_frame = data_frame
+        self.__data_frame = data_frame[self.__active_columns_names]
         self.__feature_names = feature_names
         self.__label_name = label_name
         self.__transposed_normalised_features = {feature_name: cp.array([]) for feature_name in feature_names}
