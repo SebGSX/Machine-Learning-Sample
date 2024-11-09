@@ -4,6 +4,9 @@
 [![License](https://img.shields.io/badge/License-MIT-blue)](#license)
 [![issues - Machine-Learning-Sample](https://img.shields.io/github/issues/SebGSX/Machine-Learning-Sample)](https://github.com/SebGSX/Machine-Learning-Sample/issues)
 
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=SebGSX_Machine-Learning-Sample)
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=SebGSX_Machine-Learning-Sample)](https://sonarcloud.io/summary/new_code?id=SebGSX_Machine-Learning-Sample)
+
 ## Overview
 
 This repository contains a sample machine learning project that demonstrates the inner workings of machine learning
