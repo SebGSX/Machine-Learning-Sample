@@ -77,10 +77,7 @@ def test_add_dataset_with_duplicate(manager: DataSetManager, sample_data: pd.Dat
     :param sample_data: The sample data for testing.
     """
     manager.add_dataset(HANDLE, sample_data)
-    try:
-        manager.add_dataset(HANDLE, sample_data)
-    except:
-        assert False
+    manager.add_dataset(HANDLE, sample_data)
 
 def test_clear_datasets(manager: DataSetManager, sample_data: pd.DataFrame):
     """Test clearing all datasets.
@@ -108,7 +105,4 @@ def test_remove_dataset_with_nonexistent(manager: DataSetManager):
     """Test removing a dataset that does not exist.
     :param manager: The DataSetManager instance.
     """
-    try:
-        manager.remove_dataset(HANDLE)
-    except:
-        assert False
+    manager.remove_dataset(HANDLE)
