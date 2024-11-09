@@ -6,6 +6,7 @@ import pandas as pd
 
 from datetime import datetime
 from src.data import DataSetManager, DatasetMetadata
+from src.models import ModelError
 from src.telemetry import Plotter
 from typing import Optional
 
@@ -15,7 +16,6 @@ class SpnnModel:
     """
 
     __BIAS_PARAMETER = "b"
-    __EXCEPTION_MESSAGE_FEATURE_NOT_FOUND = "The feature '{0}' was not found in the inference data."
     __EXCEPTION_MESSAGE_MODEL_NOT_TRAINED = "The model has not been trained."
     __EXCEPTION_MESSAGE_TRAINING_SETUP_NOT_COMPLETED = "The training setup has not been completed."
     __MODEL_OUTPUT_DIRECTORY_NOT_CREATED_FORMAT = "\033[91mFailed to create output directory: {0}\033[0m"
@@ -84,7 +84,7 @@ class SpnnModel:
         """
         # Aids in debugging.
         if not self.__training_setup_completed: # pragma: no cover
-            raise Exception(self.__EXCEPTION_MESSAGE_TRAINING_SETUP_NOT_COMPLETED)
+            raise ModelError(self.__EXCEPTION_MESSAGE_TRAINING_SETUP_NOT_COMPLETED)
 
         # The number of samples in the dataset.
         m = y_hat.shape[1]
@@ -113,7 +113,7 @@ class SpnnModel:
         """
         # Aids in debugging.
         if not self.__training_setup_completed: # pragma: no cover
-            raise Exception(self.__EXCEPTION_MESSAGE_TRAINING_SETUP_NOT_COMPLETED)
+            raise ModelError(self.__EXCEPTION_MESSAGE_TRAINING_SETUP_NOT_COMPLETED)
 
         # Retrieve the actual output values from the dataset metadata.
         y = self.__dataset_metadata.get_transposed_normalised_label()
@@ -140,7 +140,7 @@ class SpnnModel:
         """
         # Aids in debugging.
         if not self.__training_setup_completed: # pragma: no cover
-            raise Exception(self.__EXCEPTION_MESSAGE_TRAINING_SETUP_NOT_COMPLETED)
+            raise ModelError(self.__EXCEPTION_MESSAGE_TRAINING_SETUP_NOT_COMPLETED)
 
         # Retrieve the normalised features from the dataset metadata.
         normalised_features = self.__dataset_metadata.get_transposed_normalised_features()
@@ -193,7 +193,7 @@ class SpnnModel:
         """
         # Aids in debugging.
         if not self.__training_setup_completed: # pragma: no cover
-            raise Exception(self.__EXCEPTION_MESSAGE_TRAINING_SETUP_NOT_COMPLETED)
+            raise ModelError(self.__EXCEPTION_MESSAGE_TRAINING_SETUP_NOT_COMPLETED)
 
         # Update the bias parameter: b = b - learning_rate * db.
         self.__parameters[self.__BIAS_PARAMETER] = \
@@ -242,7 +242,7 @@ class SpnnModel:
         :param inference_data: The input values for prediction.
         """
         if not self.__converged:
-            raise Exception(self.__EXCEPTION_MESSAGE_MODEL_NOT_TRAINED)
+            raise ModelError(self.__EXCEPTION_MESSAGE_MODEL_NOT_TRAINED)
 
         return self.__predict(inference_data)
 
@@ -325,7 +325,7 @@ class SpnnModel:
         :param plot_results: Whether to plot the results of the training process.
         """
         if not self.__training_setup_completed:
-            raise Exception(self.__EXCEPTION_MESSAGE_TRAINING_SETUP_NOT_COMPLETED)
+            raise ModelError(self.__EXCEPTION_MESSAGE_TRAINING_SETUP_NOT_COMPLETED)
 
         training_start_time = datetime.now()
         converged = False

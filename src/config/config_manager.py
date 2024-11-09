@@ -9,7 +9,6 @@ from typing import Optional
 class ConfigManager:
     """Manages the configuration files for the project."""
 
-    __auth_path: Optional[Path]
     __config_path: Path
 
     def __init__(self, config_path: str):
