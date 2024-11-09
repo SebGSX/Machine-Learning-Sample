@@ -1,0 +1,16 @@
+{
+  "kaggle": {
+    "active_dataset": 0,
+    "datasets": [
+      {
+        "feature_names": [
+          "Feature"
+        ],
+        "file_name": "test-data.csv",
+        "handle": "test/test-data",
+        "label": "Label",
+        "name": "test-data"
+      }
+    ]
+  }
+}

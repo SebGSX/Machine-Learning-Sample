@@ -1,13 +1,13 @@
 # © 2024 Seb Garrioch. All rights reserved.
 # Published under the MIT License.
-import json
 import pandas as pd
 
+from src.config.config_manager import ConfigManager
 from src.models import SpnnModel
 
 if __name__ == "__main__": # pragma: no cover
-    with open("config/config.json") as config_file:
-        config: dict = json.load(config_file)
+    config_manager = ConfigManager("config/config.json", "config/auth-config.json")
+    config = config_manager.load_config()
     active_dataset: int = config["kaggle"]["active_dataset"]
     dataset_config: dict = config["kaggle"]["datasets"][active_dataset]
     feature_name = dataset_config["feature_names"][0]
