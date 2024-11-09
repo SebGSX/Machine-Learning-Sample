@@ -5,6 +5,7 @@
 [![issues - Machine-Learning-Sample](https://img.shields.io/github/issues/SebGSX/Machine-Learning-Sample)](https://github.com/SebGSX/Machine-Learning-Sample/issues)
 
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=SebGSX_Machine-Learning-Sample)
+
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=SebGSX_Machine-Learning-Sample)](https://sonarcloud.io/summary/new_code?id=SebGSX_Machine-Learning-Sample)
 
 ## Overview
