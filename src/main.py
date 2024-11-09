@@ -12,10 +12,10 @@ if __name__ == "__main__": # pragma: no cover
     config = config_manager.load_config()
     active_dataset: int = config["kaggle"]["active_dataset"]
     dataset_config: dict = config["kaggle"]["datasets"][active_dataset]
-    feature_name = dataset_config["feature_names"][0]
+    feature_names = dataset_config["feature_names"]
     model = SpnnModel("../output/")
     model.setup_linear_regression_training(
-        [ feature_name ]
+        feature_names
         , dataset_config["label"]
         , 1e-8
         , 5
@@ -25,5 +25,16 @@ if __name__ == "__main__": # pragma: no cover
         , dataset_config["file_name"]
         , dataset_config["competition_dataset"])
     model.train_linear_regression(True)
-    y_hat = model.predict(pd.DataFrame({ feature_name: [50, 120, 200] }))
+
+    y_hat = None
+
+    if active_dataset == 0:
+        y_hat = model.predict(pd.DataFrame([
+            {feature_names[0]: [1710, 1200, 2200]}
+            , {feature_names[1]: [7, 6, 8]}
+        ]))
+
+    if active_dataset == 1:
+        y_hat = model.predict(pd.DataFrame({ feature_names[0]: [50, 120, 200] }))
+
     print(y_hat)
