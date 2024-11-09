@@ -55,16 +55,18 @@ def test_initialisation_with_invalid_feature_name(sample_data: tuple[pd.DataFram
     :param sample_data: The sample data for testing.
     """
     df, feature_names, label_name = sample_data
+    feature_names = ["Invalid"]
     with pytest.raises(ValueError):
-        DatasetMetadata(df, ["Invalid"], label_name)
+        DatasetMetadata(df, feature_names, label_name)
 
 def test_initialisation_with_invalid_label_name(sample_data: tuple[pd.DataFrame, list[str], str]):
     """Tests initializing DatasetMetadata with an invalid label name.
     :param sample_data: The sample data for testing.
     """
     df, feature_names, label_name = sample_data
+    label_name = "Invalid"
     with pytest.raises(ValueError):
-        DatasetMetadata(df, feature_names, "Invalid")
+        DatasetMetadata(df, feature_names, label_name)
 
 def test_get_column_wise_mean(sample_data: tuple[pd.DataFrame, list[str], str]):
     """Tests the get_column_wise_mean method.

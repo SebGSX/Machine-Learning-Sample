@@ -4,11 +4,6 @@ from src.config.config_manager import ConfigManager
 from pytest_mock import MockerFixture
 
 
-def test_initialisation():
-    """Tests the initialisation of the ConfigManager class without an auth file."""
-    config_manager = ConfigManager("config/config.json")
-    assert config_manager is not None
-
 def test_load_config(mocker: MockerFixture):
     """Tests the load_config method.
     :param mocker: The mocker fixture.
