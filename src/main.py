@@ -8,7 +8,7 @@ from src.models import SpnnModel
 
 if __name__ == "__main__": # pragma: no cover
     os.environ["KAGGLE_CONFIG_DIR"] = ".kaggle"
-    config_manager = ConfigManager("config/config.json", "config/auth-config.json")
+    config_manager = ConfigManager("config/config.json")
     config = config_manager.load_config()
     active_dataset: int = config["kaggle"]["active_dataset"]
     dataset_config: dict = config["kaggle"]["datasets"][active_dataset]
