@@ -379,7 +379,7 @@ class SpnnModel:
                 , feature_name
                 , self.__label_name
                 , self.__predict(dataset)
-                , "Linear Regression"
+                , self.__PLOT_TITLE
                 , feature_name
                 , self.__label_name)
 
