@@ -309,7 +309,7 @@ class SpnnModel:
         # The weights are initialized for each feature.
         for i in range(len(feature_names)):
             # The weights are randomly initialized using a normal distribution.
-            param_w = cp.random.randn(self.__output_size, self.__input_size) * learning_rate
+            param_w = cp.random.randn(1, 1) * learning_rate
             self.__parameters[self.__WEIGHT_PARAMETER_PREFIX + str(i)] = param_w
 
         # The biases are initialized to zero.
