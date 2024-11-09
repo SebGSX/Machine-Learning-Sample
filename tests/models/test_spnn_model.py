@@ -60,6 +60,7 @@ def test_predict(sample_data: tuple[pd.DataFrame, list[str], str]):
         , 0.1
         , "devzohaib/tvmarketingcsv"
         , "tvmarketing.csv"
+        , False
         , df)
     model.train_linear_regression()
     y_hat = model.predict(pd.DataFrame({ "TV": [4, 5, 6] }))
@@ -87,6 +88,7 @@ def test_predict_with_training_setup_completed_not_converged(sample_data: tuple[
         , 0.75
         , "devzohaib/tvmarketingcsv"
         , "tvmarketing.csv"
+        , False
         , df)
     expected_message = "The model has not been trained."
     with pytest.raises(Exception) as exception_info:
@@ -119,6 +121,7 @@ def test_setup_linear_regression_training(sample_data: tuple[pd.DataFrame, list[
         , 0.75
         , "devzohaib/tvmarketingcsv"
         , "tvmarketing.csv"
+        , False
         , df)
 
     assert model.get_input_size() == len(feature_names)
@@ -141,6 +144,7 @@ def test_train_linear_regression_with_negative_gradient(sample_data: tuple[pd.Da
         , 0.1
         , "devzohaib/tvmarketingcsv"
         , "tvmarketing.csv"
+        , False
         , df)
     model.train_linear_regression()
 
@@ -164,6 +168,7 @@ def test_train_linear_regression_with_positive_gradient(sample_data: tuple[pd.Da
         , 0.1
         , "devzohaib/tvmarketingcsv"
         , "tvmarketing.csv"
+        , False
         , df)
     model.train_linear_regression()
 
@@ -187,6 +192,7 @@ def test_train_linear_regression_with_no_convergence(sample_data: tuple[pd.DataF
         , 0.1
         , "devzohaib/tvmarketingcsv"
         , "tvmarketing.csv"
+        , False
         , df)
     model.train_linear_regression()
 
@@ -223,6 +229,7 @@ def test_train_linear_regression_with_plot_results(
         , 0.1
         , "devzohaib/tvmarketingcsv"
         , "tvmarketing.csv"
+        , False
         , df)
     model.train_linear_regression(plot_results=True)
     assert mocked_plot.call_count >= 2
@@ -245,6 +252,7 @@ def test_train_linear_regression_with_plot_results_and_no_output_directory(mocke
         , 0.1
         , "devzohaib/tvmarketingcsv"
         , "tvmarketing.csv"
+        , False
         , df)
     model.train_linear_regression(plot_results=True)
     assert mocked_plot.call_count == 1

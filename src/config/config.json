@@ -1,11 +1,23 @@
 {
   "kaggle": {
-    "active_dataset": 0,
+    "active_dataset": 1,
     "datasets": [
+      {
+        "feature_names": [
+          "GrLivArea",
+          "OverallQual"
+        ],
+        "competition_dataset": true,
+        "file_name": "train.csv",
+        "handle": "house-prices-advanced-regression-techniques",
+        "label": "SalePrice",
+        "name": "house-prices"
+      },
       {
         "feature_names": [
           "TV"
         ],
+        "competition_dataset": false,
         "file_name": "tvmarketing.csv",
         "handle": "devzohaib/tvmarketingcsv",
         "label": "Sales",

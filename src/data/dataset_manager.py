@@ -30,15 +30,23 @@ class DataSetManager:
         """
         return len(self.datasets)
 
-    def acquire_kaggle_dataset(self, handle: str, file_name: str, force_download: bool = False): # pragma: no cover
+    def acquire_kaggle_dataset(
+            self
+            , handle: str
+            , file_name: str
+            , competition: bool = False
+            , force_download: bool = False): # pragma: no cover
         """Acquires a new dataset from Kaggle.
         :param handle: The dataset's Kaggle handle.
         :param file_name: The file name of the dataset, including the extension.
+        :param competition: Indicates whether the dataset is part of a competition.
         :param force_download: Indicates whether to force the download of the dataset even if it is already cached.
         """
-        # Cannot unit test this code without making an actual Kaggle API call. It is therefore excluded.
         try:
-            path = kagglehub.dataset_download(handle, force_download=force_download)
+            if competition:
+                path = kagglehub.competition_download(handle, force_download=force_download)
+            else:
+                path = kagglehub.dataset_download(handle, force_download=force_download)
             full_path = os.path.abspath(os.path.join(path, file_name))
             dataset = pd.read_csv(full_path)
             self.add_dataset(handle, dataset)

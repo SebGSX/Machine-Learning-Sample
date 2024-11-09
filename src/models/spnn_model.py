@@ -256,6 +256,7 @@ class SpnnModel:
             , learning_rate: float
             , handle: str
             , file_name: str
+            , competition_dataset: bool = False
             , dataset: Optional[pd.DataFrame] = None):
         """Sets up the training for the SPNN model using linear regression.
         :param feature_names: The list of feature columns in the dataset.
@@ -267,6 +268,7 @@ class SpnnModel:
         :param learning_rate: The learning rate for training.
         :param handle: The dataset's Kaggle handle.
         :param file_name: The file name of the dataset, including the extension.
+        :param competition_dataset: Whether the dataset is a competition dataset.
         :param dataset: The dataset to use for training. If None, the dataset is acquired from Kaggle.
         """
         self.__convergence_epsilon = convergence_epsilon
@@ -284,7 +286,7 @@ class SpnnModel:
         self.__dataset_manager = DataSetManager()
         self.__dataset_handle = handle
         if dataset is None: # pragma: no cover
-            self.__dataset_manager.acquire_kaggle_dataset(handle, file_name)
+            self.__dataset_manager.acquire_kaggle_dataset(handle, file_name, competition_dataset)
             dataset = self.__dataset_manager.get_dataset(handle)
         else:
             self.__dataset_manager.add_dataset(handle, dataset)

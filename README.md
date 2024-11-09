@@ -147,8 +147,20 @@ machine learning.
 ## Sample Datasets
 
 The following datasets are used in the code:
-1. [TV Marketing](https://www.kaggle.com/datasets/devzohaib/tvmarketingcsv/data) - A dataset containing the amount
+1. [House Prices](https://www.kaggle.com/c/house-prices-advanced-regression-techniques) - A dataset containing house
+   prices and features. The dataset is used to demonstrate linear regression. **Note:** This dataset is part of a
+   competition, which requires a Kaggle account to download as well as consent to the competition rules.
+2. [TV Marketing](https://www.kaggle.com/datasets/devzohaib/tvmarketingcsv/data) - A dataset containing the amount
    spent on TV marketing and the resulting sales. The dataset is used to demonstrate linear regression.
+
+> **Note:** Some datasets require a Kaggle account to download. In particular, datasets that are: part of a competition,
+> private, or require consent, all require authentication to download. To authenticate programmatically, a token is
+> required. The token can be generated from the Kaggle website's [Account Settings](https://www.kaggle.com/settings)
+> page. Please store the token in the `src/.kaggle/kaggle.json` file. Please note that `.kaggle` directory is in the
+> `.gitignore` file to prevent the token from being uploaded to the repository.
+
+> The `kaggle.json` file is provided by Kaggle and is generated from the Kaggle website's
+> [Account Settings](https://www.kaggle.com/settings) page.
 
 ## Acknowledgements
 

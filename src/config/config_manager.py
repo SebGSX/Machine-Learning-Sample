@@ -12,16 +12,11 @@ class ConfigManager:
     __auth_path: Optional[Path]
     __config_path: Path
 
-    def __init__(self, config_path: str, auth_path: str = None):
+    def __init__(self, config_path: str):
         """Initializes the ConfigManager object.
         :param config_path: The path to the config.json file containing the configuration settings.
-        :param auth_path: The path to the auth.json file containing the authentication settings.
         """
         self.__config_path = Path(config_path)
-        if auth_path:
-            self.__auth_path = Path(auth_path)
-        else:
-            self.__auth_path = None
 
     def load_config(self) -> dict:
         """Loads the configuration settings from the config.json file.
