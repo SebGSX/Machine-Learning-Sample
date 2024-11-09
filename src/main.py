@@ -29,10 +29,10 @@ if __name__ == "__main__": # pragma: no cover
     y_hat = None
 
     if active_dataset == 0:
-        y_hat = model.predict(pd.DataFrame([
-            {feature_names[0]: [1710, 1200, 2200]}
-            , {feature_names[1]: [7, 6, 8]}
-        ]))
+        y_hat = model.predict(pd.DataFrame({
+            feature_names[0]: [1710, 1200, 2200],
+            feature_names[1]: [7, 6, 8]
+        }))
 
     if active_dataset == 1:
         y_hat = model.predict(pd.DataFrame({ feature_names[0]: [50, 120, 200] }))
