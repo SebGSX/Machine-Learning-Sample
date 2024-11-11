@@ -4,7 +4,7 @@ import os
 import pandas as pd
 
 from src.config.config_manager import ConfigManager
-from src.models import SpnnModel
+from src.models import ModelCoreEducational, SpnnModel
 
 if __name__ == "__main__": # pragma: no cover
     os.environ["KAGGLE_CONFIG_DIR"] = ".kaggle"
@@ -13,7 +13,7 @@ if __name__ == "__main__": # pragma: no cover
     active_dataset: int = config["kaggle"]["active_dataset"]
     dataset_config: dict = config["kaggle"]["datasets"][active_dataset]
     feature_names = dataset_config["feature_names"]
-    model = SpnnModel("../output/")
+    model = SpnnModel(ModelCoreEducational(), "../output/")
     model.setup_linear_regression_training(
         feature_names
         , dataset_config["label"]

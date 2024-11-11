@@ -1,11 +1,11 @@
 # © 2024 Seb Garrioch. All rights reserved.
 # Published under the MIT License.
 __all__ = [
-    "model_error"
+    "model_core_educational"
     , "spnn_model"
-    , "ModelError"
+    , "ModelCoreEducational"
     , "SpnnModel"
 ]
 
-from .model_error import ModelError
+from .model_core_educational import ModelCoreEducational
 from .spnn_model import SpnnModel
