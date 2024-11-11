@@ -137,7 +137,7 @@ class ModelCoreEducational:
         m = normalised_features[self.__feature_names[0]].shape[1]
         # Retrieve the bias parameter.
         param_b = self.__parameters[co.BIAS_PARAMETER]
-        # Initialize the pre-activation values to zero.
+        # Initialise the pre-activation values to zero.
         z: cp.ndarray = cp.zeros((1, m))
         feature_count = self.__dataset_metadata.get_feature_count()
         for i in range(feature_count):
@@ -198,7 +198,7 @@ class ModelCoreEducational:
         self.__feature_names = feature_names
         self.__label_name = label_name
         self.__learning_rate = learning_rate
-        # Initialize the parameters' dictionary.
+        # Initialise the parameters' dictionary.
         self.__parameters = {}
         # Reset the training setup flag.
         self.__training_setup_completed = False
@@ -226,14 +226,14 @@ class ModelCoreEducational:
         # The output size is the number of labels in the dataset.
         self.__output_size = self.__dataset_metadata.get_label_count()
 
-        # Initialize the parameters (weights and biases) for the SPNN model.
-        # The weights are initialized for each feature.
+        # Initialise the parameters (weights and bias) for the SPNN model.
+        # The weights are initialised for each feature.
         for i in range(len(feature_names)):
-            # The weights are randomly initialized using a normal distribution.
+            # The weights are randomly initialised using a normal distribution.
             param_w = cp.random.randn(1, 1) * learning_rate
             self.__parameters[co.WEIGHT_PARAMETER_PREFIX + str(i)] = param_w
 
-        # The biases are initialized to zero.
+        # The biases are initialised to zero.
         self.__parameters[co.BIAS_PARAMETER] = cp.zeros((1, self.__output_size))
 
         # The training setup is now complete.

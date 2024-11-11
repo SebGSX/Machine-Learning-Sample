@@ -15,7 +15,7 @@ class Plotter: # pragma: no cover
     __output_directory: Optional[str]
 
     def __init__(self, output_directory: str = None):
-        """Initializes a new instance of the Plotter class.
+        """Initialises a new instance of the Plotter class.
         :param output_directory: The directory to save plots to.
         """
         if output_directory and not os.path.exists(os.path.normpath(output_directory)):

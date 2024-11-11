@@ -21,7 +21,7 @@ class DatasetMetadata:
     __transposed_normalised_label: cp.array
 
     def __init__(self, data_frame: pd.DataFrame, feature_names: list[str], label_name: str):
-        """Initializes the class.
+        """Initialises the class.
         :param data_frame: The Pandas data frame for which to generate metadata.
         :param feature_names: The list of features, by name, in the data_frame.
         :param label_name: The name of the label in the data_frame.

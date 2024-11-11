@@ -9,7 +9,7 @@ class DataSetManager:
     """Manages a list of datasets."""
 
     def __init__(self):
-        """Initializes the dataset manager."""
+        """Initialises the dataset manager."""
         self.datasets: dict = {}
 
     def get_datasets(self) -> dict:

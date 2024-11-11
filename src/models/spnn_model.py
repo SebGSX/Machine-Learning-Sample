@@ -31,7 +31,7 @@ class SpnnModel:
     __plotter: Plotter
 
     def __init__(self, model_core: Union[ModelCoreEducational], output_directory: str = None):
-        """Initializes the SPNN model.
+        """Initialises the SPNN model.
         :param model_core: The core of the model used by the SPNN model.
         :param output_directory: The directory for storing the output files.
         """

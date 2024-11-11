@@ -11,7 +11,7 @@ class ConfigManager:
     __config_path: Path
 
     def __init__(self, config_path: str):
-        """Initializes the ConfigManager object.
+        """Initialises the ConfigManager object.
         :param config_path: The path to the config.json file containing the configuration settings.
         """
         self.__config_path = Path(config_path)
