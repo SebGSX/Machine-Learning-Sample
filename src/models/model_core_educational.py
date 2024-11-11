@@ -20,8 +20,6 @@ class ModelCoreEducational:
     __input_size: int
     __label_name: str
     __learning_rate: float
-    __output_directory: Optional[str]
-    __output_directory_available: bool
     __output_size: int
     __parameters: dict[str, cp.ndarray]
     __training_setup_completed: bool
