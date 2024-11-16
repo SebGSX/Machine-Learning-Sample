@@ -179,7 +179,6 @@ class ModelCoreEducational:
         """Sets up the training for the SPNN model using linear regression.
         :param feature_names: The list of feature columns in the dataset.
         :param label_name: The name of the label column in the dataset.
-        changes by less than the epsilon value.
         :param learning_rate: The learning rate for training.
         :param handle: The dataset's Kaggle handle.
         :param file_name: The file name of the dataset, including the extension.

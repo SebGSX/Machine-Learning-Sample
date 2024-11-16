@@ -158,15 +158,12 @@ class ModelCoreOptimised:
         """Sets up the training for the SPNN model using linear regression.
         :param feature_names: The list of feature columns in the dataset.
         :param label_name: The name of the label column in the dataset.
-        changes by less than the epsilon value.
         :param learning_rate: The learning rate for training.
         :param handle: The dataset's Kaggle handle.
         :param file_name: The file name of the dataset, including the extension.
         :param competition_dataset: Whether the dataset is a competition dataset.
         :param dataset: The dataset to use for training. If None, the dataset is acquired from Kaggle.
         """
-        self.__feature_names = feature_names
-        self.__label_name = label_name
         self.__learning_rate = learning_rate
         # Initialise the parameters' dictionary.
         self.__parameters = {}
