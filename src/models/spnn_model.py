@@ -6,7 +6,7 @@ import os
 import pandas as pd
 
 from datetime import datetime
-from src.models import ModelCoreEducational
+from src.models import ModelCoreEducational, ModelCoreOptimised
 from src.errors import ModelError
 from typing import Optional, Union
 from src.telemetry import Plotter
@@ -27,10 +27,10 @@ class SpnnModel:
     __epochs: int
     __feature_names: list[str]
     __label_name: str
-    __model_core: Union[ModelCoreEducational]
+    __model_core: Union[ModelCoreEducational, ModelCoreOptimised]
     __plotter: Plotter
 
-    def __init__(self, model_core: Union[ModelCoreEducational], output_directory: str = None):
+    def __init__(self, model_core: Union[ModelCoreEducational, ModelCoreOptimised], output_directory: str = None):
         """Initialises the SPNN model.
         :param model_core: The core of the model used by the SPNN model.
         :param output_directory: The directory for storing the output files.
@@ -53,6 +53,23 @@ class SpnnModel:
         self.__label_name = ""
         self.__model_core = model_core
         self.__plotter = Plotter(self.__output_directory)
+
+    def __compute_sum_of_squares_cost(self, y_hat: cp.ndarray) -> float:
+        """Computes the sum of squares cost for the SPNN model.
+        :param y_hat: The predicted output values.
+        :return: The sum of squares cost scaled by twice the number of samples.
+        """
+        # Aids in debugging.
+        if not self.__model_core.get_training_setup_completed(): # pragma: no cover
+            raise ModelError(co.EXCEPTION_MESSAGE_TRAINING_SETUP_NOT_COMPLETED)
+
+        # Retrieve the actual output values from the dataset metadata.
+        y = self.__model_core.get_transposed_normalised_label()
+
+        # The cost is computed as the sum of the squared differences between the predicted and actual output values,
+        # divided by twice the number of samples. The division by twice the number of samples is used to facilitate
+        # the gradient descent algorithm.
+        return cp.sum((y_hat - y) ** 2) / (2 * y.shape[1])
 
     def __flush_training_setup(self):
         """Flushes the training setup for the SPNN model."""
@@ -155,7 +172,7 @@ class SpnnModel:
         same_last_cost_count = 0
         for i in range(self.__epochs):
             y_hat = self.__model_core.forward_propagation()
-            cost = self.__model_core.compute_sum_of_squares_cost(y_hat)
+            cost = self.__compute_sum_of_squares_cost(y_hat)
 
             # Check for convergence.
             if cp.isclose(cost, last_cost, atol=self.__convergence_epsilon):

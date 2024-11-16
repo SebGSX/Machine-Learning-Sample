@@ -26,9 +26,16 @@ The project includes the following key components:
 3. **Dataset Metadata:** The `DatasetMetadata` class in `src/data/dataset_metadata.py` handles metadata for a given
    dataset. It simplifies the process of computing column-wise mean, standard deviation, and normalisation. It also
    handles transposing features and labels within the dataset to facilitate matrix operations.
-4. **Tests:** The `tests` directory contains unit tests for the `SpnnModel`, `DataSetManager`, and `DatasetMetadata`
+4. **ModelCore<Educational|Optimised>:** The `ModelCoreEducational` and `ModelCoreOptimised` classes in
+   `src/models/` provide the core functionality for the SPNN model. The `ModelCoreEducational` class uses keyed data
+   structures that are easier to debug and understand. Using keyed data sacrifices performance for understandability.
+   By contrast, the `ModelCoreOptimised` class uses indexed data structures that are harder to debug due to their
+   ordinal nature. Using indexed data structures sacrifices understandability for performance. With a single feature,
+   low sample count dataset, the performance difference is negligible. However, with multiple features or high 
+   sample counts, the performance difference becomes increasingly significant as the dataset grows.
+5. **Tests:** The `tests` directory contains unit tests for the `SpnnModel`, `DataSetManager`, and `DatasetMetadata`
    classes. The aim of the tests is to demonstrate that even seemingly unwieldy code can be tested effectively.
-5. **Plotter:** The `Plotter` class in `src/telemetry/plotter.py` provides for plotting the training results of the SPNN
+6. **Plotter:** The `Plotter` class in `src/telemetry/plotter.py` provides for plotting the training results of the SPNN
    model. It uses the `matplotlib` library to create a scatter plot of the dataset and a line plot of the training
    results.
 
@@ -123,6 +130,23 @@ pip3 install tensorflow
 pip3 install cupy-cuda12x scipy optuna sympy matplotlib pandas kagglehub coverage pytest pytest-mock
 ```
 
+To update the packages, the following command is used:
+
+```shell
+source ~/.local/share/virtualenvs/machine_learning_sample/bin/activate
+pip install --upgrade pip
+pip list --outdated
+pip install --upgrade <<package_name>>
+```
+
+> **Note:** Replace `<<package_name>>` with the name of each package to be updated in turn.
+
+To create a `requirements.txt` file, the following command is used:
+
+```shell
+pip freeze > requirements.txt
+```
+
 ### Testing
 
 Tests are provided to make changing the code easier, which facilitates learning activities.
@@ -175,7 +199,8 @@ The author would like to acknowledge the following individuals and organisations
    [Calculus for Machine Learning and Data Science](https://www.coursera.org/learn/machine-learning-calculus?specialization=mathematics-for-machine-learning-and-data-science)
    course within the
    [Mathematics for Machine Learning and Data Science Specialization](https://www.coursera.org/specializations/mathematics-for-machine-learning-and-data-science).
-2. The user "[devzohaib](https://www.kaggle.com/devzohaib)" on Kaggle for providing the TV Marketing dataset.
+2. The Kaggle team for the competition datasets.
+3. The user "[devzohaib](https://www.kaggle.com/devzohaib)" on Kaggle for providing the TV Marketing dataset.
 
 ## References
 

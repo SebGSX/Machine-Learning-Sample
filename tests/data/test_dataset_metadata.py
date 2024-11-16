@@ -68,6 +68,26 @@ def test_initialisation_with_invalid_label_name(sample_data: tuple[pd.DataFrame,
     with pytest.raises(ValueError):
         DatasetMetadata(df, feature_names, label_name)
 
+def test_initialisation_with_use_keyed_data(sample_data: tuple[pd.DataFrame, list[str], str]):
+    """Tests the initialisation of the DatasetMetadata class without using keyed data.
+    :param sample_data: The sample data for testing.
+    """
+    df, feature_names, label_name = sample_data
+    metadata = DatasetMetadata(df, feature_names, label_name, True)
+    assert not metadata.get_column_wise_normalisation_computed()
+    assert metadata.get_feature_count() == 3
+    assert metadata.get_label_count() == 1
+
+def test_initialisation_without_use_keyed_data(sample_data: tuple[pd.DataFrame, list[str], str]):
+    """Tests the initialisation of the DatasetMetadata class without using keyed data.
+    :param sample_data: The sample data for testing.
+    """
+    df, feature_names, label_name = sample_data
+    metadata = DatasetMetadata(df, feature_names, label_name, False)
+    assert not metadata.get_column_wise_normalisation_computed()
+    assert metadata.get_feature_count() == 3
+    assert metadata.get_label_count() == 1
+
 def test_get_column_wise_mean(sample_data: tuple[pd.DataFrame, list[str], str]):
     """Tests the get_column_wise_mean method.
     :param sample_data: The sample data for testing.
@@ -86,6 +106,9 @@ def test_get_column_wise_normalisation(sample_data: tuple[pd.DataFrame, list[str
     metadata.compute_column_wise_normalisation()
     normalised_df = metadata.get_column_wise_normalisation()
     assert not normalised_df.empty
+    assert not normalised_df["TV"].empty
+    assert not normalised_df["Radio"].empty
+    assert not normalised_df["Newspaper"].empty
 
 def test_get_column_wise_standard_deviation(sample_data: tuple[pd.DataFrame, list[str], str]):
     """Tests the get_column_wise_standard_deviation method.
@@ -147,8 +170,8 @@ def test_compute_column_wise_normalisation_without_recompute(sample_data: tuple[
     assert not normalised_df.empty
     assert metadata.get_column_wise_normalisation_computed()
 
-def test_transpose_normalised_column_vectors(sample_data: tuple[pd.DataFrame, list[str], str]):
-    """Tests the transposition of normalised column vectors.
+def test_transpose_normalised_column_vectors_with_use_keyed_data(sample_data: tuple[pd.DataFrame, list[str], str]):
+    """Tests the transposition of normalised column vectors with using keyed data.
     :param sample_data: The sample data for testing.
     """
     df, feature_names, label_name = sample_data
@@ -174,6 +197,19 @@ def test_transpose_normalised_column_vectors_without_prior_normalisation(sample_
     assert isinstance(transposed_label, cp.ndarray)
     assert not flag_before
     assert metadata.get_column_wise_normalisation_computed()
+
+def test_transpose_normalised_column_vectors_without_use_keyed_data(sample_data: tuple[pd.DataFrame, list[str], str]):
+    """Tests the transposition of normalised column vectors without using keyed data.
+    :param sample_data: The sample data for testing.
+    """
+    df, feature_names, label_name = sample_data
+    metadata = DatasetMetadata(df, feature_names, label_name, False)
+    metadata.compute_column_wise_normalisation()
+    metadata.transpose_normalised_column_vectors()
+    transposed_features = metadata.get_transposed_normalised_features()
+    transposed_label = metadata.get_transposed_normalised_label()
+    assert all(isinstance(v, cp.ndarray) for v in transposed_features)
+    assert isinstance(transposed_label, cp.ndarray)
 
 def test_transposed_feature_shapes(sample_data):
     """Tests that transposed normalised features have expected shapes.

@@ -4,7 +4,7 @@ import os
 import pandas as pd
 
 from src.config.config_manager import ConfigManager
-from src.models import ModelCoreEducational, SpnnModel
+from src.models import ModelCoreEducational, ModelCoreOptimised, SpnnModel
 
 if __name__ == "__main__": # pragma: no cover
     os.environ["KAGGLE_CONFIG_DIR"] = ".kaggle"
@@ -13,7 +13,15 @@ if __name__ == "__main__": # pragma: no cover
     active_dataset: int = config["kaggle"]["active_dataset"]
     dataset_config: dict = config["kaggle"]["datasets"][active_dataset]
     feature_names = dataset_config["feature_names"]
-    model = SpnnModel(ModelCoreEducational(), "../output/")
+    use_optimised = config["model_core"]["use_optimised"]
+    use_plotter = config["plotter"]["use_plotter"]
+
+    if not use_optimised:
+        model_core = ModelCoreEducational()
+    else:
+        model_core = ModelCoreOptimised()
+
+    model = SpnnModel(model_core, "../output/")
     model.setup_linear_regression_training(
         feature_names
         , dataset_config["label"]
@@ -24,7 +32,7 @@ if __name__ == "__main__": # pragma: no cover
         , dataset_config["handle"]
         , dataset_config["file_name"]
         , dataset_config["competition_dataset"])
-    model.train_linear_regression(True)
+    model.train_linear_regression(use_plotter)
 
     y_hat = None
 
