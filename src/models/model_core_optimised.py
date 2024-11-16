@@ -16,9 +16,7 @@ class ModelCoreOptimised:
     __dataset_handle: str
     __dataset_manager: Optional[DataSetManager]
     __dataset_metadata: Optional[DatasetMetadata]
-    __feature_names: list[str]
     __input_size: int
-    __label_name: str
     __learning_rate: float
     __output_size: int
     __parameters: cp.ndarray
@@ -31,9 +29,7 @@ class ModelCoreOptimised:
         self.__dataset_handle = ""
         self.__dataset_manager = None
         self.__dataset_metadata = None
-        self.__feature_names = []
         self.__input_size = 0
-        self.__label_name = ""
         self.__learning_rate = 0.0
         self.__output_size = 0
         self.__parameters = cp.array([])
