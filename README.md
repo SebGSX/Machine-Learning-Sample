@@ -39,7 +39,7 @@ The project includes the following key components:
    model. It uses the `matplotlib` library to create a scatter plot of the dataset and a line plot of the training
    results.
 
-For the dataset, the project uses the TV Marketing dataset from Kaggle. The dataset contains the amount spent on TV
+For the single-feature dataset, the project uses the TV Marketing dataset from Kaggle. The dataset contains the amount spent on TV
 marketing and the resulting sales. The result of training the SPNN model on this dataset is a linear regression model
 that looks like the following:
 
