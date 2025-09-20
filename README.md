@@ -4,9 +4,16 @@
 [![License](https://img.shields.io/badge/License-MIT-blue)](#license)
 [![issues - Machine-Learning-Sample](https://img.shields.io/github/issues/SebGSX/Machine-Learning-Sample)](https://github.com/SebGSX/Machine-Learning-Sample/issues)
 
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=SebGSX_Machine-Learning-Sample)
-
-[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=SebGSX_Machine-Learning-Sample)](https://sonarcloud.io/summary/new_code?id=SebGSX_Machine-Learning-Sample)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=SebGSX_Machine-Learning-Sample&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=SebGSX_Machine-Learning-Sample)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=SebGSX_Machine-Learning-Sample&metric=bugs)](https://sonarcloud.io/summary/new_code?id=SebGSX_Machine-Learning-Sample)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=SebGSX_Machine-Learning-Sample&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=SebGSX_Machine-Learning-Sample)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=SebGSX_Machine-Learning-Sample&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=SebGSX_Machine-Learning-Sample)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=SebGSX_Machine-Learning-Sample&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=SebGSX_Machine-Learning-Sample)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=SebGSX_Machine-Learning-Sample&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=SebGSX_Machine-Learning-Sample)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=SebGSX_Machine-Learning-Sample&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=SebGSX_Machine-Learning-Sample)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=SebGSX_Machine-Learning-Sample&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=SebGSX_Machine-Learning-Sample)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=SebGSX_Machine-Learning-Sample&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=SebGSX_Machine-Learning-Sample)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=SebGSX_Machine-Learning-Sample&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=SebGSX_Machine-Learning-Sample)
 
 ## Overview
 
