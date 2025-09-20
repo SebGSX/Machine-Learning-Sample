@@ -146,14 +146,14 @@ pip list --outdated
 pip install --upgrade <<package_name>>
 ```
 
+> **Note:** Replace `<<package_name>>` with the name of each package to be updated in turn.
+
 To update all packages, the following command is used:
 
 ```shell
 source ~/.local/share/virtualenvs/machine_learning_sample/bin/activate
 pip list --outdated | awk 'NR>2 {print $1}' | xargs pip install --upgrade
 ````
-
-> **Note:** Replace `<<package_name>>` with the name of each package to be updated in turn.
 
 To create a `requirements.txt` file, the following command is used:
 
