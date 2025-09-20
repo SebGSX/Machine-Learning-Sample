@@ -39,9 +39,9 @@ The project includes the following key components:
    model. It uses the `matplotlib` library to create a scatter plot of the dataset and a line plot of the training
    results.
 
-For the single-feature dataset, the project uses the TV Marketing dataset from Kaggle. The dataset contains the amount spent on TV
-marketing and the resulting sales. The result of training the SPNN model on this dataset is a linear regression model
-that looks like the following:
+For the single-feature dataset, the project uses the TV Marketing dataset from Kaggle. The dataset contains the amount 
+spent on TV marketing and the resulting sales. The result of training the SPNN model on this dataset is a linear
+regression model that looks like the following:
 
 ![Training Result.png](./content/Training-Result.png)
 
@@ -138,6 +138,13 @@ pip install --upgrade pip
 pip list --outdated
 pip install --upgrade <<package_name>>
 ```
+
+To update all packages, the following command is used:
+
+```shell
+source ~/.local/share/virtualenvs/machine_learning_sample/bin/activate
+pip list --outdated | awk 'NR>2 {print $1}' | xargs pip install --upgrade
+````
 
 > **Note:** Replace `<<package_name>>` with the name of each package to be updated in turn.
 
