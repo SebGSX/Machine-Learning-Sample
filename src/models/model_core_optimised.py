@@ -57,7 +57,7 @@ class ModelCoreOptimised:
         """Returns the parameters (weights and biases) for the SPNN model.
         :return: The parameters (weights and biases) for the SPNN model.
         """
-        named_parameters = dict[str, cp.ndarray]()
+        named_parameters: dict[str, cp.ndarray] = {}
         for i in range(self.__parameters.shape[1] - 1):
             named_parameters[co.WEIGHT_PARAMETER_PREFIX + str(i)] = self.__parameters[0, i]
         named_parameters[co.BIAS_PARAMETER] = self.__parameters[0, self.__parameters.shape[1] - 1]

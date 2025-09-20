@@ -60,10 +60,10 @@ def test_update_parameters(sample_data: tuple[pd.DataFrame, list[str], str]):
         , False
         , df)
     gradients_raw = cp.array([[1], [2]])
-    gradients: dict[str, cp.ndarray] = dict({
+    gradients: dict[str, cp.ndarray] = {
         "dW_0": 1
         , "db": 2
-    })
+    }
     parameters_raw = cp.ndarray((2, 0))
     parameters_raw[0] = model_core.get_parameters()["W_0"]
     parameters_raw[1] = model_core.get_parameters()["b"]
