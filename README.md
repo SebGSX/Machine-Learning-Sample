@@ -1,5 +1,6 @@
 # Machine Learning Sample
 
+[![Machine Learning Sample (CI)](https://github.com/SebGSX/Machine-Learning-Sample/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/SebGSX/Machine-Learning-Sample/actions/workflows/continuous-integration.yml)
 [![GitHub tag](https://img.shields.io/github/tag/SebGSX/Machine-Learning-Sample?include_prereleases=&sort=semver&color=blue)](https://github.com/SebGSX/Machine-Learning-Sample/releases/)
 [![License](https://img.shields.io/badge/License-MIT-blue)](#license)
 [![issues - Machine-Learning-Sample](https://img.shields.io/github/issues/SebGSX/Machine-Learning-Sample)](https://github.com/SebGSX/Machine-Learning-Sample/issues)
