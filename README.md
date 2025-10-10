@@ -39,7 +39,7 @@ The project includes the following key components:
    structures that are easier to debug and understand. Using keyed data sacrifices performance for understandability.
    By contrast, the `ModelCoreOptimised` class uses indexed data structures that are harder to debug due to their
    ordinal nature. Using indexed data structures sacrifices understandability for performance. With a single feature,
-   low sample count dataset, the performance difference is negligible. However, with multiple features or high 
+   low sample count dataset, the performance difference is negligible. However, with multiple features or high
    sample counts, the performance difference becomes increasingly significant as the dataset grows.
 5. **Tests:** The `tests` directory contains unit tests for the `SpnnModel`, `DataSetManager`, and `DatasetMetadata`
    classes. The aim of the tests is to demonstrate that even seemingly unwieldy code can be tested effectively.
@@ -47,7 +47,7 @@ The project includes the following key components:
    model. It uses the `matplotlib` library to create a scatter plot of the dataset and a line plot of the training
    results.
 
-For the single-feature dataset, the project uses the TV Marketing dataset from Kaggle. The dataset contains the amount 
+For the single-feature dataset, the project uses the TV Marketing dataset from Kaggle. The dataset contains the amount
 spent on TV marketing and the resulting sales. The result of training the SPNN model on this dataset is a linear
 regression model that looks like the following:
 
@@ -55,7 +55,7 @@ regression model that looks like the following:
 
 *Training Result*
 
-For the purposes of illustration, below is an animation of the training progress as the SPNN model learns the linear 
+For the purposes of illustration, below is an animation of the training progress as the SPNN model learns the linear
 regression model from the TV Marketing dataset:
 
 ![Training Progress.gif](./content/Training-Progress-Animation.gif)
@@ -67,6 +67,7 @@ regression model from the TV Marketing dataset:
 The project is written for developers who are interested in exploring machine learning. There is an assumption that the
 reader is proficient in Python and understands mathematics, statistics, and algorithms. The project relies on the
 following concepts:
+
 - Linear algebra
 - Differential calculus (including partial derivatives)
 - Matrices and vectors
@@ -89,15 +90,16 @@ The code is designed to run on an NVIDIA GPU.
 The code is designed to run on Linux. The code is written with PyCharm on Windows, but is run using WSL 2.0 within
 Windows using a clean Linux Ubuntu 24.04 LTS distribution.
 
-> Remember to ensure that the NVIDIA CUDA Toolkit and drivers are installed on Windows for use by WSL. The NVIDIA 
+> Remember to ensure that the NVIDIA CUDA Toolkit and drivers are installed on Windows for use by WSL. The NVIDIA
 > CUDA Toolkit will also need to be installed on the Linux distribution. As always, ensure that all operating systems
 > are up-to-date before you begin.
 
 ### Software
 
 To simplify the process, the following steps are recommended in exact order:
+
 1. Install the NVIDIA CUDA Toolkit, version 12.4. You may run into an error, see the guidance within
-   [this article](https://askubuntu.com/questions/1491254/installing-cuda-on-ubuntu-23-10-libt5info-not-installable) 
+   [this article](https://askubuntu.com/questions/1491254/installing-cuda-on-ubuntu-23-10-libt5info-not-installable)
    to resolve the issue.
 2. Install cuDNN for CUDA 12.
 3. Install cuTENSOR for CUDA 12.
@@ -107,7 +109,7 @@ To simplify the process, the following steps are recommended in exact order:
 7. Install `pytorch` for CUDA 12.4, `tensorflow`, `cupy-cuda12x`, `scipy`, `optuna`, `sympy`, `matplotlib`, `pandas`,
    `kagglehub`, `coverage`, `pytest`, and `pytest-mock`.
 
-In Ubuntu 24.04, Python 3.12 is installed by default. The following commands are used to install the remaining 
+In Ubuntu 24.04, Python 3.12 is installed by default. The following commands are used to install the remaining
 Python components:
 
 ```shell
@@ -189,6 +191,7 @@ machine learning.
 ## Sample Datasets
 
 The following datasets are used in the code:
+
 1. [House Prices](https://www.kaggle.com/c/house-prices-advanced-regression-techniques) - A dataset containing house
    prices and features. The dataset is used to demonstrate linear regression. **Note:** This dataset is part of a
    competition, which requires a Kaggle account to download as well as consent to the competition rules.
@@ -207,9 +210,10 @@ The following datasets are used in the code:
 ## Acknowledgements
 
 The author would like to acknowledge the following individuals and organisations:
+
 1. Luis Serrano in association with DeepLearning.AI for the inspiration to create this project. Their courses on
    Coursera delving into the mathematics of machine learning and data science prompted me to create this project. The
-   code is based on the *Regression with Perceptron* lab from week 3 of the 
+   code is based on the *Regression with Perceptron* lab from week 3 of the
    [Calculus for Machine Learning and Data Science](https://www.coursera.org/learn/machine-learning-calculus?specialization=mathematics-for-machine-learning-and-data-science)
    course within the
    [Mathematics for Machine Learning and Data Science Specialization](https://www.coursera.org/specializations/mathematics-for-machine-learning-and-data-science).
